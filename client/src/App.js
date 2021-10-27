@@ -1,8 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './Navbar/Navbar';
 import Home from './Home/Home';
-import Create from './Create/Create';
-import BlogDetails from './BlogDetails/BlogDetails';
 import NotFound from './NotFound/NotFound';
 
 function App() {
@@ -14,12 +12,6 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Home />
-            </Route>
-            <Route path="/create">
-              <Create />
-            </Route>
-            <Route path="/blogs/:id">
-              <BlogDetails />
             </Route>
             <Route path="*">
               <NotFound />
