@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://dbAdmin:I1acDSRW@tester-app-cluster.ohgxk.mongodb.net/tester-app-database?retryWrites=true&w=majority",
+  "jwtSecret": "secret"
+}
