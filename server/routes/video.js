@@ -1,16 +1,15 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const app = express();
+const router = express.Router();
 
-app.use(express.static(path.join(__dirname, 'public')));
+router.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-  res.send('<h1>The server is working</h1>');
-});
-
-app.get('/video', (req, res) => {
-  const path = './data/video/sample.mp4';
+// @route   POST /api/video
+// @desc    Post the requested video
+// @access  Public
+router.post('/', (req, res) => {
+  const path = './data/video/sample_10sec.mp4';
   const stat = fs.statSync(path);
   const fileSize = stat.size;
   const range = req.headers.range;
@@ -51,7 +50,5 @@ app.get('/video', (req, res) => {
   }
 });
 
-const PORT = 3001;
-app.listen(PORT, () => {
-  console.log(`Server started on port ${ PORT }`);
-});
+
+module.exports = router;

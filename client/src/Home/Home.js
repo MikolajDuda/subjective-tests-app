@@ -1,17 +1,15 @@
 import { Link } from 'react-router-dom';
 
 const Home = () => {
-  // TODO: zapytać promotora co wyświetlać na głównej stronie
   return (
     <div className="home">
-      <div className="container">
-        <button className="button">What are subjective tests?</button>
+      <div>
+        <h2>Platforma do przeprowadzania subiektywnych badań jakości wideo</h2>
+        <p>Kliknij przycisk START, aby rozpocząć</p>
       </div>
-      <div className="container">
-        <Link to="/video-player">
-          <button className="button">Start test</button>
-        </Link>
-      </div>
+      <Link to="/personal-form">
+        <button className="button">START</button>
+      </Link>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import Home from './Home/Home';
 import NotFound from './NotFound/NotFound';
 import VideoPlayer from './VideoPlayer/VideoPlayer';
 import RatingPage from './RatingPage/RatingPage';
+import Form from './Form/Form';
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route path="/personal-form">
+              <Form />
             </Route>
             <Route path="/video-player">
               <VideoPlayer url={"http://localhost:3001/video"}/>
