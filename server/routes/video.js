@@ -5,10 +5,11 @@ const router = express.Router();
 
 router.use(express.static(path.join(__dirname, 'public')));
 
+// TODO: zmienić na post (chyba), wysylac wideo o okreslonej nazwie (albo id)
 // @route   POST /api/video
 // @desc    Post the requested video
 // @access  Public
-router.post('/', (req, res) => {
+router.get('/', (req, res) => {
   const path = './data/video/sample_10sec.mp4';
   const stat = fs.statSync(path);
   const fileSize = stat.size;

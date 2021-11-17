@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './Navbar/Navbar';
-import Home from './Home/Home';
-import NotFound from './NotFound/NotFound';
-import VideoPlayer from './VideoPlayer/VideoPlayer';
-import RatingPage from './RatingPage/RatingPage';
-import Form from './Form/Form';
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import NotFound from './components/NotFound';
+import VideoPlayer from './components/VideoPlayer';
+import RatingPage from './components/RatingPage';
+import Form from './components/Form';
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
               <Form />
             </Route>
             <Route path="/video-player">
-              <VideoPlayer url={"http://localhost:3001/video"}/>
+              <VideoPlayer url={"http://localhost:3001/api/video"}/>
             </Route>
             <Route path="/rate">
               <RatingPage />
