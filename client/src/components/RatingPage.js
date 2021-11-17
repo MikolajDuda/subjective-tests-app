@@ -14,7 +14,7 @@ const RatingPage = () => {
 
   return (
     <div className="rating-page">
-      <h3>Rate the video:</h3>
+      <h3>Oceń jakość wideo:</h3>
       <form onSubmit={handleSubmit}>
         <div className="radio-container">
           <label>
@@ -24,7 +24,7 @@ const RatingPage = () => {
                    onChange={(e) => {
                      setRadio(e.target.value);
                    }} />
-            excellent = 5
+            świetna = 5
           </label>
         </div>
         <div className="radio-container">
@@ -35,7 +35,7 @@ const RatingPage = () => {
                    onChange={(e) => {
                      setRadio(e.target.value);
                    }} />
-            good = 4
+            dobra = 4
           </label>
         </div>
         <div className="radio-container">
@@ -46,7 +46,7 @@ const RatingPage = () => {
                    onChange={(e) => {
                      setRadio(e.target.value);
                    }} />
-            fair = 3
+            przeciętna = 3
           </label>
         </div>
         <div className="radio-container">
@@ -57,7 +57,7 @@ const RatingPage = () => {
                    onChange={(e) => {
                      setRadio(e.target.value);
                    }} />
-            poor = 2
+            słaba = 2
           </label>
         </div>
         <div className="radio-container">
@@ -68,10 +68,10 @@ const RatingPage = () => {
                    onChange={(e) => {
                      setRadio(e.target.value);
                    }} />
-            bad = 1
+            zła = 1
           </label>
         </div>
-        <button className="button">Send the rating</button>
+        <button className="button">Zatwierdź ocenę</button>
       </form>
     </div>
   );
