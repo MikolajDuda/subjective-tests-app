@@ -6,33 +6,38 @@ import VideoPlayer from './components/VideoPlayer';
 import RatingPage from './components/RatingPage';
 import Form from './components/Form';
 
-function App() {
+import TestSessionState from './context/testSession/TestSessionState';
+
+
+const App = () => {
   return (
-    <Router>
-      <div className="App">
-        {/*<Navbar />*/}
-        <div className="content">
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/personal-form">
-              <Form />
-            </Route>
-            <Route path="/video-player">
-              <VideoPlayer url={"http://localhost:3001/api/video"}/>
-            </Route>
-            <Route path="/rate">
-              <RatingPage />
-            </Route>
-            <Route path="*">
-              <NotFound />
-            </Route>
-          </Switch>
+    <TestSessionState>
+      <Router>
+        <div className="App">
+          <div className="content">
+            <Switch>
+              <Route exact path="/">
+                <Navbar />
+                <Home />
+              </Route>
+              <Route path="/personal-form">
+                <Form />
+              </Route>
+              <Route path="/video-player">
+                <VideoPlayer url={"http://localhost:3001/api/video"} />
+              </Route>
+              <Route path="/rate">
+                <RatingPage />
+              </Route>
+              <Route path="*">
+                <NotFound />
+              </Route>
+            </Switch>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </TestSessionState>
   );
-}
+};
 
 export default App;
