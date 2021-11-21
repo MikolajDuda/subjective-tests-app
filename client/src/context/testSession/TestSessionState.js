@@ -4,8 +4,7 @@ import TestSessionContext from './TestSessionContext';
 import TestSessionReducer from './TestSessionReducer';
 import {
   GET_TEST_SESSION,
-  SET_VIDEO_RATING,
-  UPDATE_CURRENTVIDEOID
+  SET_VIDEO_RATING
 } from '../types';
 
 const TestSessionState = props => {
@@ -38,16 +37,15 @@ const TestSessionState = props => {
   // Get TestSession
 
   // Set video rating
-
-  // Update currentVideoId
+  const setVideoRating = (rating, videoId) => {
+    dispatch({ type: SET_VIDEO_RATING, payload: {rating, videoId} });
+  };
 
   return (
     <TestSessionContext.Provider
       value={{
-        experimentName: state.experimentName,
-        path: state.path,
-        videos: state.videos,
-        currentVideoId: state.currentVideoId
+        ...state,
+        setVideoRating
       }}
     >
       {props.children}

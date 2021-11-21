@@ -1,15 +1,23 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import TestSessionContext from '../context/testSession/TestSessionContext';
 
 const RatingPage = () => {
-  const [ radio, setRadio ] = useState(null);
   const history = useHistory();
+  const testSessionContext = useContext(TestSessionContext);
+  const [ radio, setRadio ] = useState(null);
+
+  const { setVideoRating, currentVideoId, videos } = testSessionContext;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e);
-    console.log('submitted');
-    history.push('/video-player');
+    setVideoRating(radio, currentVideoId);
+    console.log('submitted', e);
+    if (currentVideoId >= videos.length - 1) {
+      history.push('/');
+    } else {
+      history.push('/video-player');
+    }
   };
 
   return (

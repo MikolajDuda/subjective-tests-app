@@ -5,7 +5,6 @@ const router = express.Router();
 
 router.use(express.static(path.join(__dirname, 'public')));
 
-// TODO: zmienić na post (chyba), wysylac wideo o okreslonej nazwie (albo id)
 // @route   GET /api/video
 // @desc    Post the requested video
 // @access  Public

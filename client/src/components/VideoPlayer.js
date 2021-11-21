@@ -1,12 +1,19 @@
-import { Link, useHistory } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
 import TestSessionContext from '../context/testSession/TestSessionContext';
+import { PROXY } from '../App';
 
-const VideoPlayer = ({ url: videoUrl }) => {
-  // TODO: pobierać też informacje o wideo, które będzie można przekazać np. w type
+const VideoPlayer = () => {
   const history = useHistory();
   const testSessionContext = useContext(TestSessionContext);
-  videoUrl = `localhost:3001/api/video/${testSessionContext.path}${testSessionContext.videos[0].path}`;
+  const [ videoUrl, setVideoUrl ] = useState('');
+
+  const { path, videos, currentVideoId } = testSessionContext;
+
+  useEffect(() => {
+    const url = `${PROXY}/api/video/${path}${videos[currentVideoId].path}`;
+    setVideoUrl(url);
+  }, [ testSessionContext ]);
 
   const hideControls = () => {
     const player = document.getElementById("video-player");
@@ -17,14 +24,11 @@ const VideoPlayer = ({ url: videoUrl }) => {
   const playVideo = () => {
     const player = document.getElementById("video-player");
     player.play();
-    // if (player.paused) {
-    //   player.play();
-    // }
   };
 
   document.addEventListener('fullscreenchange', () => {
     const player = document.getElementById("video-player");
-    if (!player.paused) {
+    if (player !== null && !player.paused) {
       player.pause();
     }
   });
@@ -35,9 +39,11 @@ const VideoPlayer = ({ url: videoUrl }) => {
 
   return (
     <div className="video-player">
-      <video id="video-player" controls onClick={playVideo} onPlay={hideControls} onEnded={redirectToRatingPage}>
-        <source src={videoUrl} type="video/mp4" />
-      </video>
+      {videoUrl && (
+        <video id="video-player" controls onClick={playVideo} onPlay={hideControls} onEnded={redirectToRatingPage}>
+          <source src={videoUrl} type="video/mp4" />
+        </video>
+      )}
     </div>
   );
 };
