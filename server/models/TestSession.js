@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const videoSchema = new mongoose.Schema({
+const pvsSchema = new mongoose.Schema({
   id: {
     type: Number,
     required: true
@@ -16,8 +16,8 @@ const testSessionSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  videos: {
-    type: [ videoSchema ],
+  pvs: {
+    type: [ pvsSchema ],
     required: true
   }
 });

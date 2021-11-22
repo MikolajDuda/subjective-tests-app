@@ -1,7 +1,11 @@
 import { useHistory } from 'react-router-dom';
+import { useContext } from 'react';
+import TestSessionContext from '../context/TestSession/TestSessionContext';
 
 const Form = () => {
   const history = useHistory();
+  const testSessionContext = useContext(TestSessionContext);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -12,7 +16,7 @@ const Form = () => {
 
   return (
     <div className="form-page">
-      <h3>Rate the video:</h3>
+      <h3>Ankieta osobowa:</h3>
       <form onSubmit={handleSubmit}>
         <div className="form-container">
           <label>Wiek: </label>

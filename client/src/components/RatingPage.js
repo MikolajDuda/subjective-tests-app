@@ -7,13 +7,13 @@ const RatingPage = () => {
   const testSessionContext = useContext(TestSessionContext);
   const [ radio, setRadio ] = useState(null);
 
-  const { setVideoRating, currentVideoId, videos } = testSessionContext;
+  const { dataset_name, current_pvs_array_id, pvs, setVideoRating, clearTestSession } = testSessionContext;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setVideoRating(radio, currentVideoId);
-    console.log('submitted', e);
-    if (currentVideoId >= videos.length - 1) {
+    setVideoRating(dataset_name, radio, current_pvs_array_id, pvs);
+    if (current_pvs_array_id >= pvs.length - 1) {
+      clearTestSession();
       history.push('/');
     } else {
       history.push('/video-player');

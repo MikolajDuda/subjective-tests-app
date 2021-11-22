@@ -59,10 +59,61 @@ router.post(
   }
 );
 
-// @route    PUT api/experiment-results/:id
+// @route    POST api/experiment-results/rate/
 // @desc     Update an experiment result
 // @access   Public
-router.put('/:id', async (req, res) => {
+router.post('/rate/',
+  [
+    [
+      check('dataset_name', 'dataset_name field is required').not().isEmpty(),
+      check('rating', 'rating field is required').not().isEmpty(),
+      check('id', 'id field is required').not().isEmpty()
+    ]
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty())
+      return res.status(400).json({ errors: errors.array() });
+
+    const { dataset_name, rating, id } = req.body;
+
+    let experimentResult = await ExperimentResult.findOne({ dataset_name });
+
+    if (!experimentResult) return res.status(404).json({ msg: 'ExperimentResult not found' });
+
+    try {
+
+      const newScore = {
+        id: experimentResult.scores.length + 1,
+        timestamp: new Date().toISOString(),
+        score: rating,
+        pvs_id: id
+      };
+
+      experimentResult.scores.push(newScore);
+
+      const newExperimentResult = {
+        ...experimentResult
+      };
+
+      experimentResult = await ExperimentResult.findOneAndUpdate(
+        { dataset_name },
+        {
+          $set: newExperimentResult
+        },
+        { new: true }
+      );
+      res.json(experimentResult);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  });
+
+// @route    PUT api/experiment-results/:name
+// @desc     Update an experiment result
+// @access   Public
+router.put('/:name', async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty())
     return res.status(400).json({ errors: errors.array() });

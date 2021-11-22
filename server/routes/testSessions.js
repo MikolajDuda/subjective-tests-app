@@ -18,17 +18,17 @@ router.get('/:name', async (req, res) => {
     } else {              // is testSession is not defined create disposable, random testSession end send it
       const results = await ExperimentResult.findOne({ dataset_name: name });
 
-      let videos = results.pvs.map(pvs => ({
+      let pvs = results.pvs.map(pvs => ({
           id: pvs.id,
           path: pvs.path
         })
       );
 
-      videos = shuffle(videos);
+      pvs = shuffle(pvs);
 
       const randomTestSession = {
         dataset_name: name,
-        videos
+        pvs: pvs
       };
       res.json(randomTestSession);
     }
@@ -37,7 +37,6 @@ router.get('/:name', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-
 
 // @route    POST api/test-sessions
 // @desc     Create new or modify existing test session
@@ -48,7 +47,7 @@ router.post(
   [
     [
       check('dataset_name', 'dataset_name field is required').not().isEmpty(),
-      check('videos', 'videos field is required').not().isEmpty()
+      check('pvs', 'pvs field is required').not().isEmpty()
     ]
   ],
   async (req, res) => {
@@ -60,16 +59,16 @@ router.post(
     try {
       const {
         dataset_name,
-        videos
+        pvs
       } = req.body;
 
       let testSession = await TestSession.findOne({ dataset_name });
 
       if (testSession) {
         testSession = await TestSession.findOneAndUpdate(
-          req.params.id,
+          { dataset_name },
           {
-            $set: { dataset_name, videos }
+            $set: { dataset_name, pvs }
           },
           { new: true }
         );
@@ -78,7 +77,7 @@ router.post(
       } else {
         const newTestSession = new TestSession({
           dataset_name,
-          videos,
+          pvs,
         });
 
         const savedTestSession = await newTestSession.save();

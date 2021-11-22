@@ -6,14 +6,15 @@ import { PROXY } from '../App';
 const VideoPlayer = () => {
   const history = useHistory();
   const testSessionContext = useContext(TestSessionContext);
-  const [ videoUrl, setVideoUrl ] = useState('');
+  const [ isLoading, setIsLoading ] = useState(true);
 
-  const { path, videos, currentVideoId } = testSessionContext;
+  const { pvs, current_pvs_array_id, getTestSession } = testSessionContext;
 
   useEffect(() => {
-    const url = `${PROXY}/api/video/${path}${videos[currentVideoId].path}`;
-    setVideoUrl(url);
-  }, [ testSessionContext ]);
+    getTestSession('test').then(() => {
+      setIsLoading(false);
+    });
+  }, []);
 
   const hideControls = () => {
     const player = document.getElementById("video-player");
@@ -39,9 +40,9 @@ const VideoPlayer = () => {
 
   return (
     <div className="video-player">
-      {videoUrl && (
+      {!isLoading && (
         <video id="video-player" controls onClick={playVideo} onPlay={hideControls} onEnded={redirectToRatingPage}>
-          <source src={videoUrl} type="video/mp4" />
+          <source src={`${PROXY}/api/video/${pvs[current_pvs_array_id].path}`} type="video/mp4" />
         </video>
       )}
     </div>

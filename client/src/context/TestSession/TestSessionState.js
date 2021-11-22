@@ -4,48 +4,80 @@ import TestSessionContext from './TestSessionContext';
 import TestSessionReducer from './TestSessionReducer';
 import {
   GET_TEST_SESSION,
-  SET_VIDEO_RATING
+  TEST_SESSION_ERROR,
+  SET_VIDEO_RATING,
+  CLEAR_TEST_SESSION
 } from '../types';
+import { PROXY } from '../../App';
 
 const TestSessionState = props => {
   const initialState = {
-    experimentName: 'test',
-    path: 'data/video/',
-    videos: [
-      {
-        path: 'sample_1.mp4',
-        rating: null
-      },
-      {
-        path: 'sample_2.mp4',
-        rating: null
-      },
-      {
-        path: 'sample_3.mp4',
-        rating: null
-      },
-      {
-        path: 'sample_4.mp4',
-        rating: null
-      }
-    ],
-    currentVideoId: 0
+    dataset_name: null,
+    pvs: [],
+    current_pvs_array_id: 0
   };
 
   const [ state, dispatch ] = useReducer(TestSessionReducer, initialState); // dokumentacja: https://reactjs.org/docs/hooks-reference.html#usereducer
 
   // Get TestSession
+  const getTestSession = async dataset_name => {
+    try {
+      if (!state.pvs.length) {
+        const res = await axios.get(`${PROXY}/api/test-sessions/${dataset_name}`);
+        console.log('res.data: ', JSON.stringify(res.data));
+        dispatch({
+          type: GET_TEST_SESSION,
+          payload: res.data
+        });
+      }
+    } catch (err) {
+      dispatch({
+        type: TEST_SESSION_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
 
-  // Set video rating
-  const setVideoRating = (rating, videoId) => {
-    dispatch({ type: SET_VIDEO_RATING, payload: {rating, videoId} });
+  const clearTestSession = () => {
+    dispatch({
+      type: CLEAR_TEST_SESSION
+    });
+  };
+
+  // Set video rating api/experiment-results/rate/
+  const setVideoRating = async (dataset_name, rating, current_pvs_array_id, pvs) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    const reqBody = {
+      dataset_name,
+      rating,
+      id: pvs[current_pvs_array_id].id
+    }
+
+    try {
+      const res = await axios.post(`${PROXY}/api/experiment-results/rate/`, reqBody, config);
+      dispatch({
+        type: SET_VIDEO_RATING,
+        payload: { dataset_name, rating, current_pvs_array_id, pvs }
+      });
+    } catch (err) {
+      dispatch({
+        type: TEST_SESSION_ERROR,
+        payload: err.response.msg
+      });
+    }
   };
 
   return (
     <TestSessionContext.Provider
       value={{
         ...state,
-        setVideoRating
+        setVideoRating,
+        getTestSession,
+        clearTestSession
       }}
     >
       {props.children}
