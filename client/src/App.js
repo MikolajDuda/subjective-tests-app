@@ -5,8 +5,8 @@ import NotFound from './components/NotFound';
 import VideoPlayer from './components/VideoPlayer';
 import RatingPage from './components/RatingPage';
 import Form from './components/Form';
-import TestSessionState from './context/testSession/TestSessionState';
-import AuthState from './context/auth/AuthState';
+import TestSessionState from './context/TestSession/TestSessionState';
+import AuthState from './context/Auth/AuthState';
 import Login from './components/Login';
 import setAuthToken from './utils/setAuthToken';
 import AdministrationPanel from './components/AdministrationPanel';
@@ -35,10 +35,10 @@ const App = () => {
                   <Navbar />
                   <Login />
                 </Route>
-                <Route exact path="/register">
+                <PrivateRoute exact path="/register">
                   <Navbar />
                   <Register />
-                </Route>
+                </PrivateRoute>
                 <PrivateRoute exact path="/administration-panel">
                   <Navbar />
                   <AdministrationPanel />

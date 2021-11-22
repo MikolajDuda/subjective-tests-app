@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import TestSessionContext from '../context/testSession/TestSessionContext';
+import TestSessionContext from '../context/TestSession/TestSessionContext';
 import { PROXY } from '../App';
 
 const VideoPlayer = () => {

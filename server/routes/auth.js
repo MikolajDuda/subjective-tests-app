@@ -8,21 +8,21 @@ const { check, validationResult } = require('express-validator');
 
 const User = require('../models/User');
 
-// @route   GET /api/auth
+// @route   GET /api/Auth
 // @desc    Get logged in user
 // @access  Private
 router.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);
-    console.log('GET /api/auth');
+    console.log('GET /api/Auth');
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
 
-// @route   POST /api/auth
+// @route   POST /api/Auth
 // @desc    Auth user and get token
 // @access  Public
 router.post('/',

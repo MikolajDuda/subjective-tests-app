@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import TestSessionContext from '../context/testSession/TestSessionContext';
+import TestSessionContext from '../context/TestSession/TestSessionContext';
 
 const RatingPage = () => {
   const history = useHistory();

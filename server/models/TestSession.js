@@ -1,33 +1,25 @@
 const mongoose = require('mongoose');
 
 const videoSchema = new mongoose.Schema({
-  name: {
-    type: String,
+  id: {
+    type: Number,
     required: true
   },
-  rating: {
+  path: {
     type: String,
     required: true
   }
 });
 
 const testSessionSchema = new mongoose.Schema({
-  experimentName: {
+  dataset_name: {
     type: String,
     required: true
   },
   videos: {
     type: [ videoSchema ],
     required: true
-  },
-  path: {
-    type: String,
-    required: true
-  },
-  currentVideoId: {
-    type: Number,
-    default: 0
   }
 });
 
-module.exports = mongoose.model('testSession', testSessionSchema);
+module.exports = mongoose.model('TestSession', testSessionSchema);

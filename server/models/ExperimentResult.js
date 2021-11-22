@@ -111,7 +111,8 @@ const scoreSchema = new mongoose.Schema({
 const experimentResultSchema = new mongoose.Schema({
   dataset_name: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   sujson_version: {
     type: String,

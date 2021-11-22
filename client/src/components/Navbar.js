@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import AuthContext from '../context/auth/AuthContext';
+import AuthContext from '../context/Auth/AuthContext';
 
 const Navbar = () => {
   const history = useHistory();
@@ -15,13 +15,13 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <Link to="/"><h1>Tester app navbar</h1></Link>
+      <Link to="/"><h1>Strona główna</h1></Link>
       <div className="links">
-        <Link to="/">Home</Link>
-        {!isAuthenticated ? (<Link to="/login">Administrator Login</Link>) : (
+        {!isAuthenticated ? (<Link to="/login">Logowanie</Link>) : (
           <>
             <Link to="/administration-panel">Panel</Link>
-            <a onClick={onLogout}>Logout</a>
+            <Link to="/register">Rejestracja</Link>
+            <a onClick={onLogout}>Wyloguj</a>
           </>)}
       </div>
     </nav>

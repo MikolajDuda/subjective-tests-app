@@ -25,6 +25,7 @@ router.get('/', auth, async (req, res) => {
 // @access   Private
 router.post(
   '/',
+  auth,
   [
     [
       check('dataset_name', 'dataset_name field is required').not().isEmpty(),
@@ -38,6 +39,12 @@ router.post(
     }
 
     try {
+      let experimentResult = await ExperimentResult.findOne({ dataset_name: req.body.dataset_name });
+
+      if (experimentResult) {
+        return res.status(400).json({ msg: 'ExperimentResult with given name already exists!' });
+      }
+
       const newResult = new ExperimentResult({
         ...req.body
       });

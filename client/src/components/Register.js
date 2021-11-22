@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import AuthContext from '../context/auth/AuthContext';
+import AuthContext from '../context/Auth/AuthContext';
 import { useHistory } from 'react-router-dom';
 
 const Register = () => {
@@ -9,9 +9,9 @@ const Register = () => {
   const { register, error, clearErrors, isAuthenticated } = authContext;
 
   useEffect(() => {
-    if (isAuthenticated) {
-      history.push('/administration-panel');
-    }
+    // if (isAuthenticated) {
+    //   history.push('/administration-panel');
+    // }
 
     if (error === 'User already exists') {
       console.log(error);
@@ -42,6 +42,7 @@ const Register = () => {
         email,
         password
       });
+      history.push('/administration-panel')
     }
   };
 
