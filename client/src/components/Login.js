@@ -42,11 +42,11 @@ const Login = () => {
   return (
     <div className="login">
       <h1>
-        Administrator Login
+        Logowanie dla administratorów
       </h1>
       <form onSubmit={onSubmit}>
-        <div className="login-form-container">
-          <label htmlFor="email">Email Address: </label>
+        <div className="form-container">
+          <label htmlFor="email">Adres email: </label>
           <input
             id="email"
             type="email"
@@ -56,8 +56,8 @@ const Login = () => {
             required
           />
         </div>
-        <div className="login-form-container">
-          <label htmlFor="password">Password: </label>
+        <div className="form-container">
+          <label htmlFor="password">Hasło: </label>
           <input
             id="password"
             type="password"
@@ -67,10 +67,7 @@ const Login = () => {
             required
           />
         </div>
-        <input
-          type="submit"
-          value="Login"
-        />
+        <button className="button">Zaloguj się</button>
       </form>
     </div>
   );

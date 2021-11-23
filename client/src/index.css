@@ -103,7 +103,7 @@ li {
     width: 100%;
 }
 
-.rating-page, .form-page, .login {
+.rating-page, .form-page, .login, .register {
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -113,6 +113,6 @@ li {
     margin: 20px;
 }
 
-.form-page .form-container, .login-form-container {
+.form-container, .login-form-container {
     margin: 20px;
 }

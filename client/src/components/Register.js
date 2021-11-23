@@ -20,25 +20,23 @@ const Register = () => {
   }, [error, isAuthenticated, history]);
 
   const [user, setUser] = useState({
-    name: '',
     email: '',
     password: '',
     password2: ''
   });
 
-  const { name, email, password, password2 } = user;
+  const { email, password, password2 } = user;
 
   const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
-    if (name === '' || email === '' || password === '') {
+    if ( email === '' || password === '') {
       console.log('Please enter all fields');
     } else if (password !== password2) {
       console.log('Passwords do not match');
     } else {
       register({
-        name,
         email,
         password
       });
@@ -47,24 +45,13 @@ const Register = () => {
   };
 
   return (
-    <div className='form-container'>
+    <div className='register'>
       <h1>
-        Account <span className='text-primary'>Register</span>
+        Zarejestruj nowego administratora:
       </h1>
       <form onSubmit={onSubmit}>
-        <div className='form-group'>
-          <label htmlFor='name'>Name</label>
-          <input
-            id='name'
-            type='text'
-            name='name'
-            value={name}
-            onChange={onChange}
-            required
-          />
-        </div>
-        <div className='form-group'>
-          <label htmlFor='email'>Email Address</label>
+        <div className='form-container'>
+          <label htmlFor='email'>Adres email</label>
           <input
             id='email'
             type='email'
@@ -74,8 +61,8 @@ const Register = () => {
             required
           />
         </div>
-        <div className='form-group'>
-          <label htmlFor='password'>Password</label>
+        <div className='form-container'>
+          <label htmlFor='password'>Hasło</label>
           <input
             id='password'
             type='password'
@@ -86,8 +73,8 @@ const Register = () => {
             minLength='6'
           />
         </div>
-        <div className='form-group'>
-          <label htmlFor='password2'>Confirm Password</label>
+        <div className='form-container'>
+          <label htmlFor='password2'>Powtórz hasło</label>
           <input
             id='password2'
             type='password'
@@ -98,11 +85,7 @@ const Register = () => {
             minLength='6'
           />
         </div>
-        <input
-          type='submit'
-          value='Register'
-          className='btn btn-primary btn-block'
-        />
+        <button className="button">Rejestruj</button>
       </form>
     </div>
   );
