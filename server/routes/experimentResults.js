@@ -7,8 +7,8 @@ const ExperimentResult = require('../models/ExperimentResult');
 
 // @route    GET api/experiment-results
 // @desc     Get all experiment-results
-// @access   Private
-router.get('/', auth, async (req, res) => {
+// @access   Public
+router.get('/', async (req, res) => {
   try {
     const results = await ExperimentResult.find({}).sort({
       dataset_name: -1

@@ -1,6 +1,6 @@
 import {
   CLEAR_TEST_SESSION,
-  GET_TEST_SESSION,
+  GET_TEST_SESSION, SET_DATASET_NAME,
   SET_VIDEO_RATING
 } from '../types';
 
@@ -18,7 +18,7 @@ export default (state, action) => {
 
       return {
         ...newState,
-        current_pvs_array_id: id + 1 // Update currentVideoId
+        current_pvs_array_id: id + 1 // Update current_pvs_array_id
       };
     }
 
@@ -30,12 +30,20 @@ export default (state, action) => {
         id: pvs.id,
         path: pvs.path,
         rating: 0
-      }))
+      }));
       return {
         ...newState,
         current_pvs_array_id: id,
         dataset_name: action.payload.dataset_name
       };
+    }
+
+    case SET_DATASET_NAME: {
+      console.log(action.payload);
+      return {
+        ...state,
+        dataset_name: action.payload.dataset_name
+      }
     }
 
     case CLEAR_TEST_SESSION: {
@@ -44,7 +52,7 @@ export default (state, action) => {
         dataset_name: null,
         pvs: [],
         current_pvs_array_id: 0
-      }
+      };
     }
 
     default:

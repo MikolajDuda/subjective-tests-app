@@ -12,6 +12,8 @@ import setAuthToken from './utils/setAuthToken';
 import AdministrationPanel from './components/AdministrationPanel';
 import Register from './components/Register';
 import PrivateRoute from './components/PrivateRoute';
+import ExperimentList from './components/ExperimentsList';
+import ExperimentResultState from './context/ExperimentResult/ExperimentResultState';
 
 export const PROXY = 'http://localhost:3001';
 
@@ -23,42 +25,47 @@ const App = () => {
   return (
     <AuthState>
       <TestSessionState>
-        <Router>
-          <div className="App">
-            <div className="content">
-              <Switch>
-                <Route exact path="/">
-                  <Navbar />
-                  <Home />
-                </Route>
-                <Route exact path="/login">
-                  <Navbar />
-                  <Login />
-                </Route>
-                <PrivateRoute exact path="/register">
-                  <Navbar />
-                  <Register />
-                </PrivateRoute>
-                <PrivateRoute exact path="/administration-panel">
-                  <Navbar />
-                  <AdministrationPanel />
-                </PrivateRoute>
-                <Route path="/personal-form">
-                  <Form />
-                </Route>
-                <Route path="/video-player">
-                  <VideoPlayer />
-                </Route>
-                <Route path="/rate">
-                  <RatingPage />
-                </Route>
-                <Route path="*">
-                  <NotFound />
-                </Route>
-              </Switch>
+        <ExperimentResultState>
+          <Router>
+            <div className="App">
+              <div className="content">
+                <Switch>
+                  <Route exact path="/">
+                    <Navbar />
+                    <Home />
+                  </Route>
+                  <Route exact path="/login">
+                    <Navbar />
+                    <Login />
+                  </Route>
+                  <PrivateRoute exact path="/register">
+                    <Navbar />
+                    <Register />
+                  </PrivateRoute>
+                  <PrivateRoute exact path="/administration-panel">
+                    <Navbar />
+                    <AdministrationPanel />
+                  </PrivateRoute>
+                  <Route path="/personal-form">
+                    <Form />
+                  </Route>
+                  <Route path="/experiment-list">
+                    <ExperimentList />
+                  </Route>
+                  <Route path="/video-player">
+                    <VideoPlayer />
+                  </Route>
+                  <Route path="/rate">
+                    <RatingPage />
+                  </Route>
+                  <Route path="*">
+                    <NotFound />
+                  </Route>
+                </Switch>
+              </div>
             </div>
-          </div>
-        </Router>
+          </Router>
+        </ExperimentResultState>
       </TestSessionState>
     </AuthState>
   );

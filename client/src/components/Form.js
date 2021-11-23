@@ -1,17 +1,13 @@
 import { useHistory } from 'react-router-dom';
-import { useContext } from 'react';
-import TestSessionContext from '../context/TestSession/TestSessionContext';
 
 const Form = () => {
   const history = useHistory();
-  const testSessionContext = useContext(TestSessionContext);
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(e);
     console.log('submitted');
-    history.push('/video-player');
+    history.push('/experiment-list');
   };
 
   return (
@@ -27,7 +23,7 @@ const Form = () => {
           <label>Płeć: </label>
           <br />
           <select name="gender" id="gender">
-            <option disabled selected value> -- wybierz płeć -- </option>
+            <option disabled selected value> -- wybierz płeć --</option>
             <option value="male">mężczyzna</option>
             <option value="female">kobieta</option>
             <option value="other">inna</option>
@@ -37,7 +33,7 @@ const Form = () => {
           <label>Wykształcenie: </label>
           <br />
           <select name="education" id="education">
-            <option disabled selected value> -- wybierz poziom wykształcenia -- </option>
+            <option disabled selected value> -- wybierz poziom wykształcenia --</option>
             <option value="primary">podstawowe</option>
             <option value="secondary">średnie</option>
             <option value="higher">wyższe</option>
@@ -47,16 +43,17 @@ const Form = () => {
           <label>Czy posiadasz wadę wzroku?: </label>
           <br />
           <select name="vision-defect" id="vision-defect">
-            <option disabled selected value> -- wybierz -- </option>
+            <option disabled selected value> -- wybierz --</option>
             <option value="yes">tak</option>
             <option value="no">nie</option>
           </select>
         </div>
         <div className="form-container">
-          <label>Czy w swojej pracy zawodowej zajmujesz się multimediami <br />(montażem nagrań wideo, obróbką graficzną etc.)?: </label>
+          <label>Czy w swojej pracy zawodowej zajmujesz się multimediami <br />(montażem nagrań wideo, obróbką graficzną
+            etc.)?: </label>
           <br />
           <select name="multimedia-related-work" id="multimedia-related-work">
-            <option disabled selected value> -- wybierz -- </option>
+            <option disabled selected value> -- wybierz --</option>
             <option value="yes">tak</option>
             <option value="no">nie</option>
           </select>

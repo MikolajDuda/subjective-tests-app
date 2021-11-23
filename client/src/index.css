@@ -86,6 +86,11 @@ a {
     cursor: pointer;
 }
 
+li {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 .video-player {
     height: auto;
     display: flex;

@@ -6,7 +6,8 @@ import {
   GET_TEST_SESSION,
   TEST_SESSION_ERROR,
   SET_VIDEO_RATING,
-  CLEAR_TEST_SESSION
+  CLEAR_TEST_SESSION,
+  SET_DATASET_NAME
 } from '../types';
 import { PROXY } from '../../App';
 
@@ -20,7 +21,8 @@ const TestSessionState = props => {
   const [ state, dispatch ] = useReducer(TestSessionReducer, initialState); // dokumentacja: https://reactjs.org/docs/hooks-reference.html#usereducer
 
   // Get TestSession
-  const getTestSession = async dataset_name => {
+  const getTestSession = async () => {
+    const dataset_name = state.dataset_name;
     try {
       if (!state.pvs.length) {
         const res = await axios.get(`${PROXY}/api/test-sessions/${dataset_name}`);
@@ -44,6 +46,14 @@ const TestSessionState = props => {
     });
   };
 
+  const setDatasetName = (dataset_name) => {
+    console.log('testSessionState: ', dataset_name);
+    dispatch({
+      type: SET_DATASET_NAME,
+      payload: { dataset_name }
+    });
+  };
+
   // Set video rating api/experiment-results/rate/
   const setVideoRating = async (dataset_name, rating, current_pvs_array_id, pvs) => {
     const config = {
@@ -55,7 +65,7 @@ const TestSessionState = props => {
       dataset_name,
       rating,
       id: pvs[current_pvs_array_id].id
-    }
+    };
 
     try {
       const res = await axios.post(`${PROXY}/api/experiment-results/rate/`, reqBody, config);
@@ -76,6 +86,7 @@ const TestSessionState = props => {
       value={{
         ...state,
         setVideoRating,
+        setDatasetName,
         getTestSession,
         clearTestSession
       }}
