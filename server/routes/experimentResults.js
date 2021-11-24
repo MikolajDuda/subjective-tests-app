@@ -20,6 +20,20 @@ router.get('/', async (req, res) => {
   }
 });
 
+// @route    GET api/experiment-results/:name
+// @desc     Get experiment result
+// @access   Private
+router.get('/:name', async (req, res) => {
+  const name = req.params.name;
+  try {
+    const result = await ExperimentResult.findOne({ dataset_name: name });
+    res.json(result);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 // @route    POST api/experiment-results
 // @desc     Create an experiment result
 // @access   Private

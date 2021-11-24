@@ -116,3 +116,8 @@ li {
 .form-container, .login-form-container {
     margin: 20px;
 }
+
+.experiment-panel-list a::after {
+    content: "\a";
+    white-space: pre;
+}
