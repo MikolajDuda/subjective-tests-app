@@ -22,8 +22,8 @@ const Form = () => {
         <div className="form-container">
           <label>Płeć: </label>
           <br />
-          <select name="gender" id="gender">
-            <option disabled selected value> -- wybierz płeć --</option>
+          <select name="gender" id="gender" defaultValue={''} required>
+            <option disabled hidden value="">Wybierz płeć</option>
             <option value="male">mężczyzna</option>
             <option value="female">kobieta</option>
             <option value="other">inna</option>
@@ -32,8 +32,8 @@ const Form = () => {
         <div className="form-container">
           <label>Wykształcenie: </label>
           <br />
-          <select name="education" id="education">
-            <option disabled selected value> -- wybierz poziom wykształcenia --</option>
+          <select name="education" id="education" defaultValue={''} required>
+            <option disabled hidden value="">Wybierz swój poziom wykształcenia</option>
             <option value="primary">podstawowe</option>
             <option value="secondary">średnie</option>
             <option value="higher">wyższe</option>
@@ -42,18 +42,18 @@ const Form = () => {
         <div className="form-container">
           <label>Czy posiadasz wadę wzroku?: </label>
           <br />
-          <select name="vision-defect" id="vision-defect">
-            <option disabled selected value> -- wybierz --</option>
+          <select name="vision-defect" id="vision-defect" defaultValue={''} required>
+            <option disabled hidden value="">Wybierz odpowiedź</option>
             <option value="yes">tak</option>
             <option value="no">nie</option>
           </select>
         </div>
         <div className="form-container">
-          <label>Czy w swojej pracy zawodowej zajmujesz się multimediami <br />(montażem nagrań wideo, obróbką graficzną
+          <label>Czy w swojej pracy zawodowej zajmujesz się multimediami (montażem nagrań wideo, obróbką graficzną
             etc.)?: </label>
           <br />
-          <select name="multimedia-related-work" id="multimedia-related-work">
-            <option disabled selected value> -- wybierz --</option>
+          <select name="multimedia-related-work" id="multimedia-related-work" defaultValue={''} required>
+            <option disabled hidden value="">Wybierz odpowiedź</option>
             <option value="yes">tak</option>
             <option value="no">nie</option>
           </select>

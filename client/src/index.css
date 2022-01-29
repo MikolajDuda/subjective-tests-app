@@ -117,6 +117,13 @@ li {
     margin: 20px;
 }
 
+.form-container input, .form-container select {
+    margin: 10px;
+    min-width: 50px;
+    padding: 3px 20px;
+    text-align: center;
+}
+
 .experiment-list a::after {
     content: "\a";
     white-space: pre;
