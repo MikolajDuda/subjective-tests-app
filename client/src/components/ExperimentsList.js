@@ -28,11 +28,13 @@ const ExperimentList = () => {
   return (
     <div className="experiment-list">
       <h2>Wybierz jeden z dostępnych eksperymentów, żeby rozpocząć test.</h2>
+      <ul>
         {!isLoading && experiment_names.map(experiment =>
-          <a href="" onClick={onClick}>
+          <li key={experiment} onClick={onClick}>
             {experiment}
-          </a>
+          </li>
         )}
+      </ul>
     </div>
   );
 };
