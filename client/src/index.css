@@ -89,9 +89,10 @@ a {
 li {
     cursor: pointer;
     text-decoration: underline;
+    margin: 10px 10px;
 }
 
-.video-player {
+.video-player div {
     height: auto;
     display: flex;
     flex-direction: column;
@@ -99,8 +100,16 @@ li {
     justify-content: center;
 }
 
-.video-player video {
+.video-player div video {
     width: 100%;
+}
+
+.instruction-header {
+    margin: 20px;
+}
+
+.instruction-button {
+    margin: 20px;
 }
 
 .rating-page, .form-page, .login, .register {

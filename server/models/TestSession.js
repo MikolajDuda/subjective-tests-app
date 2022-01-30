@@ -16,6 +16,10 @@ const testSessionSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  instructional_video_path: {
+    type: String,
+    required: false
+  },
   pvs: {
     type: [ pvsSchema ],
     required: true

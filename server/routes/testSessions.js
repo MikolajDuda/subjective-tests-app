@@ -27,6 +27,7 @@ router.get('/:name', async (req, res) => {
       pvs = shuffle(pvs);
 
       const randomTestSession = {
+        instructional_video_path: 'data/video/instructions/example_instruction.mp4',
         dataset_name: name,
         pvs: pvs
       };
@@ -48,6 +49,7 @@ router.post(
     [
       check('dataset_name', 'dataset_name field is required').not().isEmpty(),
       check('pvs', 'pvs field is required').not().isEmpty()
+      // check('instructional_video_path', 'instructional_video_path field is required').not().isEmpty()
     ]
   ],
   async (req, res) => {
@@ -59,7 +61,8 @@ router.post(
     try {
       const {
         dataset_name,
-        pvs
+        pvs,
+        instructional_video_path
       } = req.body;
 
       let testSession = await TestSession.findOne({ dataset_name });
@@ -68,7 +71,7 @@ router.post(
         testSession = await TestSession.findOneAndUpdate(
           { dataset_name },
           {
-            $set: { dataset_name, pvs }
+            $set: { dataset_name, pvs, instructional_video_path }
           },
           { new: true }
         );
@@ -78,6 +81,7 @@ router.post(
         const newTestSession = new TestSession({
           dataset_name,
           pvs,
+          instructional_video_path
         });
 
         const savedTestSession = await newTestSession.save();

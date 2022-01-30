@@ -7,11 +7,21 @@ const VideoPlayer = () => {
   const history = useHistory();
   const testSessionContext = useContext(TestSessionContext);
   const [ isLoading, setIsLoading ] = useState(true);
+  let videoSrc;
 
-  const { pvs, current_pvs_array_id, getTestSession } = testSessionContext;
+  const {
+    pvs,
+    current_pvs_array_id,
+    instructional_video_path,
+    instruction_played,
+    markInstructionAsPlayed,
+    getTestSession
+  } = testSessionContext;
 
   useEffect(() => {
-    getTestSession('test').then(() => {
+    getTestSession().then(() => {
+      console.log('instructional_video_path', instructional_video_path);
+      // videoSrc = instruction_played ? `${PROXY}/api/video/${pvs[current_pvs_array_id].path}` : `${PROXY}/api/video/${instructional_video_path}`;
       setIsLoading(false);
     });
   }, []);
@@ -35,16 +45,31 @@ const VideoPlayer = () => {
   });
 
   const redirectToRatingPage = () => {
-    history.push('/rate');
+    if (!instruction_played) {
+      markInstructionAsPlayed();
+    } else {
+      history.push('/rate');
+    }
   };
+
+  const redirectToTest = () => {
+    history.push('/video-player')
+  }
 
   return (
     <div className="video-player">
-      {!isLoading && (
-        <video id="video-player" controls onClick={playVideo} onPlay={hideControls} onEnded={redirectToRatingPage}>
-          <source src={`${PROXY}/api/video/${pvs[current_pvs_array_id].path}`} type="video/mp4" />
-        </video>
-      )}
+      {!isLoading &&
+        (
+          <div>
+            {!instruction_played ? <h2 className="instruction-header">Instrukcja</h2> : ''}
+            <video id="video-player" controls onClick={playVideo} onPlay={hideControls} onEnded={redirectToRatingPage}>
+              <source
+                src={instruction_played ? `${PROXY}/api/video/${pvs[current_pvs_array_id].path}` : `${PROXY}/api/video/${instructional_video_path}`}
+                type="video/mp4"/>
+            </video>
+            {!instruction_played ? <button className="button instruction-button" onClick={redirectToTest}>Rozpocznij test</button> : ''}
+          </div>
+        )}
     </div>
   );
 };

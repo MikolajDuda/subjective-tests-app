@@ -21,6 +21,7 @@ const ExperimentList = () => {
 
   const onClick = (e) => {
     clearTestSession();
+    console.log('DEBUG', e.target.innerText);
     setDatasetName(e.target.innerText);
     history.push('/video-player');
   };

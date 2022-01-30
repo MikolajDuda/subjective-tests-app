@@ -4,18 +4,22 @@ import TestSessionContext from './TestSessionContext';
 import TestSessionReducer from './TestSessionReducer';
 import {
   GET_TEST_SESSION,
+  SET_TEST_SESSION,
   TEST_SESSION_ERROR,
   SET_VIDEO_RATING,
   CLEAR_TEST_SESSION,
-  SET_DATASET_NAME
+  SET_DATASET_NAME,
+  MARK_INSTRUCTION_PLAYED
 } from '../types';
 import { PROXY } from '../../App';
 
 const TestSessionState = props => {
   const initialState = {
     dataset_name: null,
+    instructional_video_path: '',
     pvs: [],
-    current_pvs_array_id: 0
+    current_pvs_array_id: 0,
+    instruction_played: false
   };
 
   const [ state, dispatch ] = useReducer(TestSessionReducer, initialState); // dokumentacja: https://reactjs.org/docs/hooks-reference.html#usereducer
@@ -43,6 +47,12 @@ const TestSessionState = props => {
   const clearTestSession = () => {
     dispatch({
       type: CLEAR_TEST_SESSION
+    });
+  };
+
+  const markInstructionAsPlayed = () => {
+    dispatch({
+      type: MARK_INSTRUCTION_PLAYED
     });
   };
 
@@ -88,7 +98,8 @@ const TestSessionState = props => {
         setVideoRating,
         setDatasetName,
         getTestSession,
-        clearTestSession
+        clearTestSession,
+        markInstructionAsPlayed
       }}
     >
       {props.children}

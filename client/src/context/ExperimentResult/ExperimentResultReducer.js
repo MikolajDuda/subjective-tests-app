@@ -1,7 +1,8 @@
 import {
   GET_ALL_EXPERIMENT_RESULTS,
-  GET_EXPERIMENT_RESULT,
+  // GET_EXPERIMENT_RESULT, potencjalnie niepotrzebne
   ADD_EXPERIMENT_RESULT,
+  UPDATE_EXPERIMENT_RESULT,
   EXPERIMENT_RESULT_ERROR
 } from '../types';
 
@@ -14,6 +15,16 @@ export default (state, action) => {
         experiment_names: action.payload.map(experiment => experiment.dataset_name)
       }
     }
+
+    // TODO: Dodać ADD_EXPERIMENT_RESULT/UPDATE_EXPERIMENT_RESULT, w którym administrator będzie mógł dodać nowy exp_result
+    // case ADD_EXPERIMENT_RESULT: {
+    //   return ;
+    // }
+
+    // TODO: UPDATE_EXPERIMENT_RESULT, w którym administrator będzie mógł zmieniać istniejące exp_result
+
+    // TODO: Dodać EXPERIMENT_RESULT_ERROR, w którym będzie wyświetlany błąd jak coś się nie uda
+
 
     /*
     case CLEAR_TEST_SESSION: {
