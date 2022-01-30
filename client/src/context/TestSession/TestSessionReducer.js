@@ -65,7 +65,8 @@ export default (state, action) => {
         ...state,
         dataset_name: null,
         pvs: [],
-        current_pvs_array_id: 0
+        current_pvs_array_id: 0,
+        instruction_played: false
       };
     }
 

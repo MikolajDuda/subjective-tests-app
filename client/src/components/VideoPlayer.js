@@ -7,7 +7,7 @@ const VideoPlayer = () => {
   const history = useHistory();
   const testSessionContext = useContext(TestSessionContext);
   const [ isLoading, setIsLoading ] = useState(true);
-  let videoSrc;
+  let instructionPlayed = false;
 
   const {
     pvs,
@@ -20,8 +20,6 @@ const VideoPlayer = () => {
 
   useEffect(() => {
     getTestSession().then(() => {
-      console.log('instructional_video_path', instructional_video_path);
-      // videoSrc = instruction_played ? `${PROXY}/api/video/${pvs[current_pvs_array_id].path}` : `${PROXY}/api/video/${instructional_video_path}`;
       setIsLoading(false);
     });
   }, []);
@@ -45,15 +43,21 @@ const VideoPlayer = () => {
   });
 
   const redirectToRatingPage = () => {
-    if (!instruction_played) {
-      markInstructionAsPlayed();
-    } else {
+    console.log('redirectToRatingPage się wykonał')
+    if (instruction_played) {
       history.push('/rate');
+    } else {
+      instructionPlayed = true;
     }
   };
 
   const redirectToTest = () => {
-    history.push('/video-player')
+    if (instructionPlayed) {
+      markInstructionAsPlayed();
+      history.go(0);          // TODO: ogarnąć historię i odtwarzanie dobrych rzeczy po obejrzeniu instrukcji
+    } else {
+      alert('Przed rozpoczęciem testu należy obejrzeć instrukcję');
+    }
   }
 
   return (
