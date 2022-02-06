@@ -1,19 +1,32 @@
 import { useHistory } from 'react-router-dom';
+import { useContext } from "react";
+import TestSessionContext from "../context/TestSession/TestSessionContext";
 
 const Form = () => {
   const history = useHistory();
+  const testSessionContext = useContext(TestSessionContext);
+
+  const { addSubjectToTestSession } = testSessionContext;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e);
-    console.log('submitted');
+    const formData = new FormData(e.target);
+    const subjectData = {
+      age: formData.get('age'),
+      gender: formData.get('gender'),
+      education: formData.get('education'),
+      vision_defect: formData.get('vision-defect'),
+      multimedia_related_work: formData.get('multimedia-related-work')
+    }
+    console.log('subjectData', subjectData);
+    addSubjectToTestSession(subjectData);
     history.push('/experiment-list');
   };
 
   return (
     <div className="form-page">
       <h3>Ankieta osobowa:</h3>
-      <form onSubmit={handleSubmit}>
+      <form id="form" onSubmit={handleSubmit}>
         <div className="form-container">
           <label>Wiek: </label>
           <br />

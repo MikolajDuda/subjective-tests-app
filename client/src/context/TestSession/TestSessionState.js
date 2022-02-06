@@ -9,7 +9,8 @@ import {
   SET_VIDEO_RATING,
   CLEAR_TEST_SESSION,
   SET_DATASET_NAME,
-  MARK_INSTRUCTION_PLAYED
+  MARK_INSTRUCTION_PLAYED,
+  ADD_SUBJECT_TO_TEST_SESSION
 } from '../types';
 import { PROXY } from '../../App';
 
@@ -18,6 +19,7 @@ const TestSessionState = props => {
     dataset_name: null,
     instructional_video_path: '',
     pvs: [],
+    subject: {},
     current_pvs_array_id: 0,
     instruction_played: false
   };
@@ -43,6 +45,21 @@ const TestSessionState = props => {
       });
     }
   };
+
+  const addSubjectToTestSession = async (subjectData) => {
+    try {
+      console.log(subjectData);
+      dispatch({
+        type: ADD_SUBJECT_TO_TEST_SESSION,
+        payload: { subjectData }
+      });
+    } catch (err) {
+      dispatch({
+        type: TEST_SESSION_ERROR,
+        payload: err.response.msg
+      });
+    }
+  }
 
   const clearTestSession = () => {
     dispatch({
@@ -99,7 +116,8 @@ const TestSessionState = props => {
         setDatasetName,
         getTestSession,
         clearTestSession,
-        markInstructionAsPlayed
+        markInstructionAsPlayed,
+        addSubjectToTestSession
       }}
     >
       {props.children}

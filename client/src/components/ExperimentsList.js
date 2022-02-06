@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from 'react';
 import ExperimentResultContext from '../context/ExperimentResult/ExperimentResultContext';
 import TestSessionContext from '../context/TestSession/TestSessionContext';
 
-
 const ExperimentList = () => {
   const history = useHistory();
   const experimentResultContext = useContext(ExperimentResultContext);
@@ -21,9 +20,8 @@ const ExperimentList = () => {
 
   const onClick = (e) => {
     clearTestSession();
-    console.log('DEBUG', e.target.innerText);
     setDatasetName(e.target.innerText);
-    history.push('/video-player');
+    history.push('/instruction');
   };
 
   return (

@@ -14,6 +14,7 @@ import Register from './components/Register';
 import PrivateRoute from './components/PrivateRoute';
 import ExperimentList from './components/ExperimentsList';
 import ExperimentResultState from './context/ExperimentResult/ExperimentResultState';
+import InstructionPlayer from "./components/InstructionPlayer";
 
 export const PROXY = 'http://localhost:3001';
 
@@ -54,6 +55,9 @@ const App = () => {
                   </Route>
                   <Route path="/video-player">
                     <VideoPlayer />
+                  </Route>
+                  <Route path="/instruction">
+                    <InstructionPlayer />
                   </Route>
                   <Route path="/rate">
                     <RatingPage />

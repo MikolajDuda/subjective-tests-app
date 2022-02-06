@@ -3,14 +3,15 @@ import { useContext, useEffect, useState } from 'react';
 import TestSessionContext from '../context/TestSession/TestSessionContext';
 import { PROXY } from '../App';
 
-const VideoPlayer = () => {
+const InstructionPlayer = () => {
   const history = useHistory();
   const testSessionContext = useContext(TestSessionContext);
   const [ isLoading, setIsLoading ] = useState(true);
+  let instructionPlayed = false;
 
   const {
-    pvs,
-    current_pvs_array_id,
+    instructional_video_path,
+    markInstructionAsPlayed,
     getTestSession
   } = testSessionContext;
 
@@ -39,24 +40,34 @@ const VideoPlayer = () => {
   });
 
   const redirectToRatingPage = () => {
-    history.push('/rate');
+    instructionPlayed = true;
   };
+
+  const redirectToTest = () => {
+    if (instructionPlayed) {
+      markInstructionAsPlayed();
+      history.push('/video-player');
+    } else {
+      alert('Przed rozpoczęciem testu należy obejrzeć instrukcję');
+    }
+  }
 
   return (
     <div className="video-player">
       {!isLoading &&
         (
           <div>
-            <h2 className="instruction-header">Wideo nr {current_pvs_array_id + 1}</h2>
+            <h2 className="instruction-header">Instrukcja</h2>
             <video id="video-player" controls onClick={playVideo} onPlay={hideControls} onEnded={redirectToRatingPage}>
               <source
-                src={`${PROXY}/api/video/${pvs[current_pvs_array_id].path}`}
+                src={`${PROXY}/api/video/${instructional_video_path}`}
                 type="video/mp4"/>
             </video>
+            <button className="button instruction-button" onClick={redirectToTest}>Rozpocznij test</button>
           </div>
         )}
     </div>
   );
 };
 
-export default VideoPlayer;
+export default InstructionPlayer;

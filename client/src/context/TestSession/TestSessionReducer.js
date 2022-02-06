@@ -3,7 +3,9 @@ import {
   GET_TEST_SESSION,
   SET_TEST_SESSION,
   SET_DATASET_NAME,
-  SET_VIDEO_RATING, MARK_INSTRUCTION_PLAYED
+  SET_VIDEO_RATING,
+  MARK_INSTRUCTION_PLAYED,
+  ADD_SUBJECT_TO_TEST_SESSION
 } from '../types';
 
 export default (state, action) => {
@@ -52,6 +54,17 @@ export default (state, action) => {
       };
     }
 
+    case ADD_SUBJECT_TO_TEST_SESSION: {
+      console.log('ADD_SUBJECT_TO_TEST_SESSION reducer', {
+        ...state,
+        subject: action.payload.subjectData
+      })
+      return {
+        ...state,
+        subject: action.payload.subjectData
+      }
+    }
+
     case SET_DATASET_NAME: {
       console.log(action.payload);
       return {
@@ -65,6 +78,7 @@ export default (state, action) => {
         ...state,
         dataset_name: null,
         pvs: [],
+        subject: {},
         current_pvs_array_id: 0,
         instruction_played: false
       };
