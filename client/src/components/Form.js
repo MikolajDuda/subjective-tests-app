@@ -12,11 +12,14 @@ const Form = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const subjectData = {
-      age: formData.get('age'),
-      gender: formData.get('gender'),
-      education: formData.get('education'),
-      vision_defect: formData.get('vision-defect'),
-      multimedia_related_work: formData.get('multimedia-related-work')
+      id: Number(`${Date.now()}${Math.floor(Math.random() * 10000)}`),
+      characteristics: {
+        age: formData.get('age'),
+        gender: formData.get('gender'),
+        education: formData.get('education'),
+        vision_defect: formData.get('vision-defect'),
+        multimedia_related_work: formData.get('multimedia-related-work')
+      }
     }
     console.log('subjectData', subjectData);
     addSubjectToTestSession(subjectData);

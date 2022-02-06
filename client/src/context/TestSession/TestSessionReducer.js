@@ -77,6 +77,7 @@ export default (state, action) => {
       return {
         ...state,
         dataset_name: null,
+        instructional_video_path: '',
         pvs: [],
         subject: {},
         current_pvs_array_id: 0,

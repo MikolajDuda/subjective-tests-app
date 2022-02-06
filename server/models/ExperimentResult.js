@@ -105,7 +105,8 @@ const scoreSchema = new mongoose.Schema({
   question_id: Number,
   timestamp: String,
   score: Number,
-  pvs_id: mongoose.Schema.Types.Mixed
+  pvs_id: mongoose.Schema.Types.Mixed,
+  subject_id: Number
 });
 
 const experimentResultSchema = new mongoose.Schema({

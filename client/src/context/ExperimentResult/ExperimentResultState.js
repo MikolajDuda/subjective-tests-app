@@ -29,37 +29,37 @@ const ExperimentResultState = props => {
     } catch (err) {
       dispatch({
         type: EXPERIMENT_RESULT_ERROR,
-        payload: err.response.msg
+        payload: err.response?.msg
       });
     }
   };
-  // TODO: To wszystko raczej tylko w TestSession:
-  // const addSubjectToExperimentResult = async (dataset_name, subjectData) => {
-  //   const config = {
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     }
-  //   };
-  //   const reqBody = {
-  //     dataset_name,
-  //     subjects: "xd"
-  //   };
-  //
-  //   try {
-  //     console.log(dataset_name)
-  //     console.log(subjectData);
-  //     // const res = await axios.post(`${PROXY}/api/experiment-results/rate/`, reqBody, config);
-  //     // dispatch({
-  //     //   type: ADD_SUBJECT_TO_EXPERIMENT_RESULT,
-  //     //   payload: { dataset_name }
-  //     // });
-  //   } catch (err) {
-  //     dispatch({
-  //       type: EXPERIMENT_RESULT_ERROR,
-  //       payload: err.response.msg
-  //     });
-  //   }
-  // }
+
+  const addSubjectToExperimentResult = async (dataset_name, subjectData) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    const reqBody = {
+      dataset_name,
+      subject: subjectData
+    };
+
+    try {
+      console.log(dataset_name)
+      console.log(subjectData);
+      const res = await axios.post(`${PROXY}/api/experiment-results/subjects/`, reqBody, config);
+      // dispatch({
+      //   type: ADD_SUBJECT_TO_EXPERIMENT_RESULT,
+      //   payload: { dataset_name }
+      // });
+    } catch (err) {
+      dispatch({
+        type: EXPERIMENT_RESULT_ERROR,
+        payload: err.response.msg
+      });
+    }
+  }
 
   /*
   const clearTestSession = () => {
@@ -101,7 +101,8 @@ const ExperimentResultState = props => {
       value={{
         ...state,
         experiment_names: state.experiment_names,
-        getAllExperimentResults
+        getAllExperimentResults,
+        addSubjectToExperimentResult
       }}
     >
       {props.children}

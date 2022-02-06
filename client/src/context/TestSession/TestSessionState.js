@@ -82,7 +82,7 @@ const TestSessionState = props => {
   };
 
   // Set video rating api/experiment-results/rate/
-  const setVideoRating = async (dataset_name, rating, current_pvs_array_id, pvs) => {
+  const setVideoRating = async (dataset_name, rating, current_pvs_array_id, pvs, subject_id) => {
     const config = {
       headers: {
         'Content-Type': 'application/json'
@@ -91,10 +91,12 @@ const TestSessionState = props => {
     const reqBody = {
       dataset_name,
       rating,
-      id: pvs[current_pvs_array_id].id
+      id: pvs[current_pvs_array_id].id,
+      subject_id
     };
 
     try {
+      console.log('subject_id', subject_id);
       const res = await axios.post(`${PROXY}/api/experiment-results/rate/`, reqBody, config);
       dispatch({
         type: SET_VIDEO_RATING,

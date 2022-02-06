@@ -9,8 +9,8 @@ const ExperimentList = () => {
   const testSessionContext = useContext(TestSessionContext);
   const [ isLoading, setIsLoading ] = useState(true);
 
-  const { experiment_names, getAllExperimentResults } = experimentResultContext;
-  const { setDatasetName, clearTestSession } = testSessionContext;
+  const { experiment_names, getAllExperimentResults, addSubjectToExperimentResult } = experimentResultContext;
+  const { setDatasetName, clearTestSession, subject, addSubjectToTestSession } = testSessionContext;
 
   useEffect(() => {
     getAllExperimentResults().then(() => {
@@ -19,8 +19,12 @@ const ExperimentList = () => {
   }, []);
 
   const onClick = (e) => {
+    const datasetName = e.target.innerText;
+    const subjectTemp = subject;
     clearTestSession();
-    setDatasetName(e.target.innerText);
+    setDatasetName(datasetName);
+    addSubjectToTestSession(subject);
+    addSubjectToExperimentResult(datasetName, subject);
     history.push('/instruction');
   };
 
