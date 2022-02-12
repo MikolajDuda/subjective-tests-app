@@ -20,7 +20,6 @@ const ExperimentList = () => {
 
   const onClick = (e) => {
     const datasetName = e.target.innerText;
-    const subjectTemp = subject;
     clearTestSession();
     setDatasetName(datasetName);
     addSubjectToTestSession(subject);

@@ -17,16 +17,61 @@ const AdministrationPanel = () => {
     });
   }, []);
 
+  const download = (url, filename) => {
+    fetch(url)
+      .then(response => response.blob())
+      .then(blob => {
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+      })
+      .catch(console.error);
+  }
+
   return (
     <div className="administration-panel">
       <h2>Panel administracyjny</h2>
       <div className="experiment-panel-list">
         <h3>Zarządzaj eksperymentami:</h3>
-        {!isLoading && experiment_names.map(experiment =>
-          <a href={`${PROXY}/api/experiment-results/${experiment}`}>
-            {experiment}
-          </a>
-        )}
+        <ul>
+          {!isLoading && experiment_names.map(experiment =>
+            <li key={experiment} className="experiment-item">
+              <p>{experiment}</p>
+              <button className='panel-button'
+                      onClick={() => download(`${PROXY}/api/experiment-results/${experiment}`, experiment)}>Pobierz
+                wyniki
+              </button>
+              <button className='panel-button' onClick={() => {
+                console.log('Zaktualizowales plik')
+              }}>Zaktualizuj eksperyment
+              </button>
+              <button className='panel-button' onClick={() => {
+                console.log('Zaktualizowales sesje')
+              }}>Zaktualizuj sesję testową
+              </button>
+              <button className='panel-button delete-button' onClick={() => {
+                const confirmation = window.confirm('Czy jesteś pewien, że chcesz usunąć eksperyment?');
+                if (confirmation) {
+                  console.log('Usunales eksperyment!')
+                } else {
+                  console.log('Zdecydowales sie nie usuwac eksperymentu...')
+                }
+              }}>Usuń eksperyment
+              </button>
+            </li>
+          )}
+        </ul>
+        <h3>Dodaj nowy eksperyment:</h3>
+        <form>
+          <label className="add-experiment-label">
+            <input type="file" />
+            Wybierz plik
+          </label>
+          <button className='panel-button'>
+            Dodaj
+          </button>
+        </form>
       </div>
     </div>
   );
