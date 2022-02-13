@@ -20,7 +20,7 @@ const Form = () => {
         vision_defect: formData.get('vision-defect'),
         multimedia_related_work: formData.get('multimedia-related-work')
       }
-    }
+    };
     console.log('subjectData', subjectData);
     addSubjectToTestSession(subjectData);
     history.push('/experiment-list');

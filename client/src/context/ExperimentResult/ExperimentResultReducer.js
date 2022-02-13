@@ -9,7 +9,6 @@ import {
 export default (state, action) => {
   switch (action.type) {
     case GET_ALL_EXPERIMENT_RESULTS: {
-      console.log(action.payload.map(experiment => experiment.dataset_name));
       return {
         ...state,
         experiment_names: action.payload.map(experiment => experiment.dataset_name)

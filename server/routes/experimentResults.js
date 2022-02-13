@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     res.json(results);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Błąd serwera');
   }
 });
 
@@ -30,7 +30,7 @@ router.get('/:name', async (req, res) => {
     res.json(result);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Błąd serwera');
   }
 });
 
@@ -56,7 +56,7 @@ router.post(
       let experimentResult = await ExperimentResult.findOne({ dataset_name: req.body.dataset_name });
 
       if (experimentResult) {
-        return res.status(400).json({ msg: 'ExperimentResult with given name already exists!' });
+        return res.status(400).json({ msg: 'Eksperyment z podanym dataset_name już istnieje!' });
       }
 
       const newResult = new ExperimentResult({
@@ -68,7 +68,7 @@ router.post(
       res.json(result);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server Error');
+      res.status(500).send('Błąd serwera');
     }
   }
 );
@@ -94,7 +94,7 @@ router.post('/rate/',
 
     let experimentResult = await ExperimentResult.findOne({ dataset_name });
 
-    if (!experimentResult) return res.status(404).json({ msg: 'ExperimentResult not found' });
+    if (!experimentResult) return res.status(404).json({ msg: 'Nie znaleziono eksperymentu z podanym dataset_name' });
 
     try {
 
@@ -122,7 +122,7 @@ router.post('/rate/',
       res.json(experimentResult);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server error');
+      res.status(500).send('Błąd serwera');
     }
   });
 
@@ -145,7 +145,7 @@ router.post('/subjects/',
 
     let experimentResult = await ExperimentResult.findOne({ dataset_name });
 
-    if (!experimentResult) return res.status(404).json({ msg: 'ExperimentResult not found' });
+    if (!experimentResult) return res.status(404).json({ msg: 'Nie znaleziono eksperymentu z podanym dataset_name' });
 
     try {
 
@@ -170,7 +170,7 @@ router.post('/subjects/',
       res.json(experimentResult);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server error');
+      res.status(500).send('Błąd serwera');
     }
   });
 
@@ -219,7 +219,7 @@ router.put('/',
     try {
       let result = await ExperimentResult.findOne({ dataset_name });
 
-      if (!result) return res.status(404).json({ msg: 'ExperimentResult not found' });
+      if (!result) return res.status(404).json({ msg: 'Nie znaleziono eksperymentu z podanym dataset_name!' });
 
       result = await ExperimentResult.findOneAndUpdate(
         { dataset_name },
@@ -229,26 +229,38 @@ router.put('/',
       res.json(result);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server error');
+      res.status(500).send('Błąd serwera');
     }
   });
 
 // @route    DELETE api/experiment-results/:id
 // @desc     Delete an experiment result
 // @access   Private
-router.delete('/:id', auth, async (req, res) => {
-  try {
-    const result = await ExperimentResult.findById(req.params.id);
+router.delete('/',
+  auth,
+  [
+    [
+      check('dataset_name', 'dataset_name field is required').not().isEmpty()
+    ]
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
-    if (!result) return res.status(404).json({ msg: 'ExperimentResult not found' });
+    try {
+      let result = await ExperimentResult.findOne({ dataset_name: req.body.dataset_name });
 
-    await ExperimentResult.findByIdAndRemove(req.params.id);
+      if (!result) return res.status(404).json({ msg: 'Nie znaleziono eksperymentu z podanym dataset_name!' });
 
-    res.json({ msg: 'ExperimentResult removed' });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
-  }
-});
+      await ExperimentResult.findOneAndDelete({ dataset_name: req.body.dataset_name });
+
+      res.json({ msg: 'Usunięto eksperment.' });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Błąd serwera');
+    }
+  });
 
 module.exports = router;
