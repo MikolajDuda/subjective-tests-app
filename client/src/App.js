@@ -48,6 +48,7 @@ const App = () => {
                     <AdministrationPanel />
                   </PrivateRoute>
                   <Route path="/personal-form">
+                    <Navbar />
                     <Form />
                   </Route>
                   <Route path="/experiment-list">

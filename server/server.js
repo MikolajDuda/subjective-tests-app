@@ -24,7 +24,6 @@ app.use('/api/experiment-results', require('./routes/experimentResults'));
 app.use('/api/test-sessions', require('./routes/testSessions'));
 
 
-
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {

@@ -1,9 +1,26 @@
 const express = require('express');
 const router = express.Router();
 const TestSession = require('../models/TestSession');
-const { check, validationResult } = require('express-validator');
 const ExperimentResult = require('../models/ExperimentResult');
+const { check, validationResult } = require('express-validator');
 const auth = require('../middleware/auth');
+
+const defaultInstructionalVideoPath = 'data/video/instructions/example_instruction.mp4';
+
+// @route    GET api/test-sessions
+// @desc     Get all test-sessions
+// @access   Public
+router.get('/', async (req, res) => {
+  try {
+    const testSessions = await TestSession.find({}).sort({
+      dataset_name: -1
+    });
+    res.json(testSessions.map(testSession => testSession.dataset_name));
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Błąd serwera');
+  }
+});
 
 // @route    GET api/test-sessions
 // @desc     Get test session
@@ -15,7 +32,7 @@ router.get('/:name', async (req, res) => {
 
     if (testSession) {    // if testSession is defined in the database send the testSession
       res.json(testSession);
-    } else {              // is testSession is not defined create disposable, random testSession end send it
+    } else {              // if testSession is not defined create disposable, random testSession end send it
       const results = await ExperimentResult.findOne({ dataset_name: name });
 
       let pvs = results.pvs.map(pvs => ({
@@ -35,7 +52,7 @@ router.get('/:name', async (req, res) => {
     }
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Błąd serwera');
   }
 });
 
@@ -47,9 +64,8 @@ router.post(
   auth,
   [
     [
-      check('dataset_name', 'dataset_name field is required').not().isEmpty(),
-      check('pvs', 'pvs field is required').not().isEmpty()
-      // check('instructional_video_path', 'instructional_video_path field is required').not().isEmpty()
+      check('dataset_name', 'dataset_name: pole jest wymagane').not().isEmpty(),
+      check('pvs', 'pvs: pole jest wymagane').not().isEmpty()
     ]
   ],
   async (req, res) => {
@@ -59,11 +75,13 @@ router.post(
     }
 
     try {
-      const {
+      let {
         dataset_name,
         pvs,
         instructional_video_path
       } = req.body;
+
+      instructional_video_path = instructional_video_path ?? defaultInstructionalVideoPath;
 
       let testSession = await TestSession.findOne({ dataset_name });
 
@@ -90,10 +108,40 @@ router.post(
       }
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server Error');
+      res.status(500).send('Błąd serwera');
     }
   }
 );
+
+// @route    DELETE api/test-sessions/
+// @desc     Delete a test-session
+// @access   Private
+router.delete('/',
+  auth,
+  [
+    [
+      check('dataset_name', 'dataset_name: pole jest wymagane').not().isEmpty()
+    ]
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      let testSession = await TestSession.findOne({ dataset_name: req.body.dataset_name });
+
+      if (!testSession) return res.status(404).json({ msg: 'Nie znaleziono sesji testowej z podanym dataset_name' });
+
+      await TestSession.findOneAndDelete({ dataset_name: req.body.dataset_name });
+
+      res.json({ msg: 'Usunięto sesję tesową' });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Błąd serwera');
+    }
+  });
 
 function shuffle(array) {     // Durstenfeld shuffle algorithm
   for (let i = array.length - 1; i > 0; i--) {

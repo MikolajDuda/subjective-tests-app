@@ -1,7 +1,6 @@
 import {
   CLEAR_TEST_SESSION,
   GET_TEST_SESSION,
-  SET_TEST_SESSION,
   SET_DATASET_NAME,
   SET_VIDEO_RATING,
   MARK_INSTRUCTION_PLAYED,
@@ -22,13 +21,12 @@ export default (state, action) => {
 
       return {
         ...newState,
-        current_pvs_array_id: id + 1 // Update current_pvs_array_id
+        current_pvs_array_id: id + 1
       };
     }
 
     case GET_TEST_SESSION: {
       const newState = { ...state };
-      console.log('action.payload:   ', JSON.stringify(action.payload));
       newState.pvs = action.payload.pvs.map(pvs => ({
         id: pvs.id,
         path: pvs.path,
@@ -42,11 +40,6 @@ export default (state, action) => {
       };
     }
 
-    // TODO: Dodać ADD_TEST_SESSION/MODIFY_TEST_SESSION, które będzie służyć do tworzenia/edytowania sesji testowej przez administratora
-    // case SET_TEST_SESSION: {
-    //   return;
-    // }
-
     case MARK_INSTRUCTION_PLAYED: {
       return {
         ...state,
@@ -55,10 +48,6 @@ export default (state, action) => {
     }
 
     case ADD_SUBJECT_TO_TEST_SESSION: {
-      console.log('ADD_SUBJECT_TO_TEST_SESSION reducer', {
-        ...state,
-        subject: action.payload.subjectData
-      })
       return {
         ...state,
         subject: action.payload.subjectData
@@ -66,7 +55,6 @@ export default (state, action) => {
     }
 
     case SET_DATASET_NAME: {
-      console.log(action.payload);
       return {
         ...state,
         dataset_name: action.payload.dataset_name

@@ -3,11 +3,8 @@ import axios from 'axios';
 import ExperimentResultContext from './ExperimentResultContext';
 import ExperimentResultReducer from './ExperimentResultReducer';
 import {
-  ADD_SUBJECT_TO_EXPERIMENT_RESULT,
   GET_ALL_EXPERIMENT_RESULTS,
-  GET_EXPERIMENT_RESULT,
-  ADD_EXPERIMENT_RESULT,
-  EXPERIMENT_RESULT_ERROR, SET_VIDEO_RATING
+  EXPERIMENT_RESULT_ERROR
 } from '../types';
 import { PROXY } from '../../App';
 
@@ -46,13 +43,7 @@ const ExperimentResultState = props => {
     };
 
     try {
-      console.log(dataset_name)
-      console.log(subjectData);
       const res = await axios.post(`${PROXY}/api/experiment-results/subjects/`, reqBody, config);
-      // dispatch({
-      //   type: ADD_SUBJECT_TO_EXPERIMENT_RESULT,
-      //   payload: { dataset_name }
-      // });
     } catch (err) {
       dispatch({
         type: EXPERIMENT_RESULT_ERROR,

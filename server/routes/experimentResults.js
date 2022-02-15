@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const ExperimentResult = require('../models/ExperimentResult');
 const { check, validationResult } = require('express-validator');
 const auth = require('../middleware/auth');
-
-const ExperimentResult = require('../models/ExperimentResult');
 
 // @route    GET api/experiment-results
 // @desc     Get all experiment-results
@@ -42,8 +41,8 @@ router.post(
   auth,
   [
     [
-      check('dataset_name', 'dataset_name field is required').not().isEmpty(),
-      check('characteristics', 'characteristics field is required').not().isEmpty()
+      check('dataset_name', 'dataset_name: pole jest wymagane').not().isEmpty(),
+      check('characteristics', 'characteristics: pole jest wymagane').not().isEmpty()
     ]
   ],
   async (req, res) => {
@@ -79,10 +78,10 @@ router.post(
 router.post('/rate/',
   [
     [
-      check('dataset_name', 'dataset_name field is required').not().isEmpty(),
-      check('rating', 'rating field is required').not().isEmpty(),
-      check('id', 'id field is required').not().isEmpty(),
-      check('subject_id', 'subject_id field is required').not().isEmpty()
+      check('dataset_name', 'dataset_name: pole jest wymagane').not().isEmpty(),
+      check('rating', 'rating: pole jest wymagane').not().isEmpty(),
+      check('id', 'id: pole jest wymagane').not().isEmpty(),
+      check('subject_id', 'subject_id: pole jest wymagane').not().isEmpty()
     ]
   ],
   async (req, res) => {
@@ -132,8 +131,8 @@ router.post('/rate/',
 router.post('/subjects/',
   [
     [
-      check('dataset_name', 'dataset_name field is required').not().isEmpty(),
-      check('subject', 'subject field is required').not().isEmpty()
+      check('dataset_name', 'dataset_name: pole jest wymagane').not().isEmpty(),
+      check('subject', 'subject: pole jest wymagane').not().isEmpty()
     ]
   ],
   async (req, res) => {
@@ -179,7 +178,7 @@ router.post('/subjects/',
 // @access   Public
 router.put('/',
   [
-    [ check('dataset_name', 'dataset_name field is required').not().isEmpty() ]
+    [ check('dataset_name', 'dataset_name: pole jest wymagane').not().isEmpty() ]
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -240,7 +239,7 @@ router.delete('/',
   auth,
   [
     [
-      check('dataset_name', 'dataset_name field is required').not().isEmpty()
+      check('dataset_name', 'dataset_name: pole jest wymagane').not().isEmpty()
     ]
   ],
   async (req, res) => {

@@ -5,7 +5,15 @@ import { useHistory } from 'react-router-dom';
 const Login = () => {
   const history = useHistory();
   const authContext = useContext(AuthContext);
+  const [ message, setMessage ] = useState('');
+
   const { login, error, clearErrors, isAuthenticated } = authContext;
+
+  const discardMessage = () => {
+    setTimeout(() => {
+      setMessage('')
+    }, 5000);
+  };
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -13,7 +21,8 @@ const Login = () => {
     }
 
     if (error === 'Invalid Credentials') {
-      console.log(error);
+      setMessage('Niepoprawe dane');
+      discardMessage();
       clearErrors();
     }
   }, [ error, isAuthenticated, history ]);
@@ -30,7 +39,8 @@ const Login = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (email === '' || password === '') {
-      console.log('Please fill in all fields');
+      setMessage('Wypełnij wszystkie pola');
+      discardMessage();
     } else {
       login({
         email,
@@ -41,9 +51,9 @@ const Login = () => {
 
   return (
     <div className="login">
-      <h1>
+      <h2>
         Logowanie dla administratorów
-      </h1>
+      </h2>
       <form onSubmit={onSubmit}>
         <div className="form-container">
           <label htmlFor="email">Adres email: </label>
@@ -69,6 +79,7 @@ const Login = () => {
         </div>
         <button className="button">Zaloguj się</button>
       </form>
+      <p className="message">{message}</p>
     </div>
   );
 };

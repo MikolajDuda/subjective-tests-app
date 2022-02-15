@@ -4,7 +4,6 @@ import TestSessionContext from './TestSessionContext';
 import TestSessionReducer from './TestSessionReducer';
 import {
   GET_TEST_SESSION,
-  SET_TEST_SESSION,
   TEST_SESSION_ERROR,
   SET_VIDEO_RATING,
   CLEAR_TEST_SESSION,
@@ -32,7 +31,6 @@ const TestSessionState = props => {
     try {
       if (!state.pvs.length) {
         const res = await axios.get(`${PROXY}/api/test-sessions/${dataset_name}`);
-        console.log('res.data: ', JSON.stringify(res.data));
         dispatch({
           type: GET_TEST_SESSION,
           payload: res.data
@@ -48,7 +46,6 @@ const TestSessionState = props => {
 
   const addSubjectToTestSession = async (subjectData) => {
     try {
-      console.log(subjectData);
       dispatch({
         type: ADD_SUBJECT_TO_TEST_SESSION,
         payload: { subjectData }
@@ -74,7 +71,6 @@ const TestSessionState = props => {
   };
 
   const setDatasetName = (dataset_name) => {
-    console.log('testSessionState: ', dataset_name);
     dispatch({
       type: SET_DATASET_NAME,
       payload: { dataset_name }
@@ -96,7 +92,6 @@ const TestSessionState = props => {
     };
 
     try {
-      console.log('subject_id', subject_id);
       const res = await axios.post(`${PROXY}/api/experiment-results/rate/`, reqBody, config);
       dispatch({
         type: SET_VIDEO_RATING,

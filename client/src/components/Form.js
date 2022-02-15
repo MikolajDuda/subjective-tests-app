@@ -21,7 +21,6 @@ const Form = () => {
         multimedia_related_work: formData.get('multimedia-related-work')
       }
     };
-    console.log('subjectData', subjectData);
     addSubjectToTestSession(subjectData);
     history.push('/experiment-list');
   };

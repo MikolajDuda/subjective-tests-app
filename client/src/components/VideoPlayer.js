@@ -51,7 +51,7 @@ const VideoPlayer = () => {
             <video id="video-player" controls onClick={playVideo} onPlay={hideControls} onEnded={redirectToRatingPage}>
               <source
                 src={`${PROXY}/api/video/${pvs[current_pvs_array_id].path}`}
-                type="video/mp4"/>
+                type="video/mp4" />
             </video>
           </div>
         )}

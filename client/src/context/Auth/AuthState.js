@@ -59,7 +59,6 @@ const AuthState = props => {
         type: REGISTER_SUCCESS,
         payload: res.data
       });
-      console.log('Zarejestrowano nowego użytkownika');
     } catch (err) {
       console.log('Błąd:', err);
       dispatch({

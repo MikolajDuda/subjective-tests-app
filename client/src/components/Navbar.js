@@ -21,7 +21,7 @@ const Navbar = () => {
           <>
             <Link to="/administration-panel">Panel</Link>
             <Link to="/register">Rejestracja</Link>
-            <a onClick={onLogout}>Wyloguj</a>
+            <a href="/" onClick={onLogout}>Wyloguj</a>
           </>)}
       </div>
     </nav>
