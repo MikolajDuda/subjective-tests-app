@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5608b904-fbc7-439c-ac79-56ab4dce2fdd",
+		"_postman_id": "fffefe6a-4d02-4636-8412-e3c67430ba73",
 		"name": "tester-app",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -233,9 +233,62 @@
 				{
 					"name": "Send the score to ExperimentResult",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dataset_name\": \"test\",\n    \"rating\": \"3\",\n    \"id\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/experiment-results/rate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"experiment-results",
+								"rate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add subject to ExperimentResult",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dataset_name\": \"test\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/experiment-results/subjects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"experiment-results",
+								"subjects"
+							]
+						}
 					},
 					"response": []
 				}
@@ -322,7 +375,7 @@
 							},
 							{
 								"key": "x-auth-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE5MjllNDJiODE3ZTE1ZGY4ODNiNzk5In0sImlhdCI6MTYzNzYwMzE5OSwiZXhwIjoxNjM3NjM5MTk5fQ.dR5RyJZgaWlO8e3M40qFjxuhKP9q0E8FiWV5V61njH8",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE5MjllNDJiODE3ZTE1ZGY4ODNiNzk5In0sImlhdCI6MTYzNzc1MTM3NSwiZXhwIjoxNjM3Nzg3Mzc1fQ.opq5IaGDRMGCx7X6C0dt6Mq5qWWplUd-LuN-5I06bfc",
 								"type": "text"
 							}
 						],
@@ -346,7 +399,55 @@
 					"response": []
 				},
 				{
+					"name": "Delete a Test Session",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE5MjllNDJiODE3ZTE1ZGY4ODNiNzk5In0sImlhdCI6MTYzNzE2ODU2MCwiZXhwIjoxNjM3MjA0NTYwfQ.sgBcKapBle0I6wK89W5FlEKJRsv_EHAKMp4TP9uSXW4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/api/experiment-results/61953488ffd5ed8a0629fcfd",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"experiment-results",
+								"61953488ffd5ed8a0629fcfd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get Test Session",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/test-sessions/test-random",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"test-sessions",
+								"test-random"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Test Sessions",
 					"request": {
 						"method": "GET",
 						"header": [],

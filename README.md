@@ -1,13 +1,20 @@
 ## Application used to conduct subjective audio-video tests
 
 ### Requirements:
-Node version:
+- npm
+- node version:
 ```14 LTS```
 
-### Run development
-Both in `/client` and `/server` run below commands:
+### Run development:
+Run below commands in `/client` directory:
 
 ```
 npm install
 npm start
+```
+
+Run below commands in `/server` directory:
+```
+npm install
+npm run dev
 ```
