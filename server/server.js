@@ -1,5 +1,5 @@
 const express = require('express');
-const cors = require('cors');     // TODO: usunąć corsa przed deployem
+const cors = require('cors');
 const connectDB = require('./config/db');
 
 const app = express();
@@ -18,7 +18,6 @@ app.get('/', (req, res) => {
 // Define Routes
 app.use('/api/Auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/users'));
-app.use('/api/contacts', require('./routes/contacts'));
 app.use('/api/video', require('./routes/video'));
 app.use('/api/experiment-results', require('./routes/experimentResults'));
 app.use('/api/test-sessions', require('./routes/testSessions'));

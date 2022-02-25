@@ -125,7 +125,7 @@ router.post('/rate/',
     }
   });
 
-// @route    POST api/experiment-results/rate/
+// @route    POST api/experiment-results/subjects/
 // @desc     Update an experiment result
 // @access   Public
 router.post('/subjects/',
@@ -232,7 +232,7 @@ router.put('/',
     }
   });
 
-// @route    DELETE api/experiment-results/:id
+// @route    DELETE api/experiment-results
 // @desc     Delete an experiment result
 // @access   Private
 router.delete('/',

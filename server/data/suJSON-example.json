@@ -1,8 +1,6 @@
 {
   "dataset_name": "Two separate and pair comparison",
-
   "sujson_version": "1.1.1",
-
   "characteristics": {
     "pixel_format": "yuv420",
     "width": 1920,
@@ -41,14 +39,12 @@
 
     "description": "This is a dummy suJSON file, created to test yet another possible scenario for subjective testing. Notice that two (2) testers take part in the experiment. By looking at timestamps of their answers it becomes obvious that they performed the test simultaneously. To show how flexible this format is, a MOS score for PVS 1 is given in list \"scores\". Notice, that there may be many tasks in a single subjective experiment. In this example, only a single task is given to testers."
   },
-
   "tasks": [
     {
       "id": 1,
       "task": "Rate three (3) PVSs presented. Please rate the first two as individual sequences. Then, compare the second and the third one using the Pair Comparison method"
     }
   ],
-
   "scales": [
     {
       "id": 1,
@@ -102,7 +98,6 @@
       }
     }
   ],
-
   "questions": [
     {
       "id": 1,
@@ -129,7 +124,6 @@
       }
     }
   ],
-
   "src": [
     {
       "id": 1,
@@ -142,7 +136,6 @@
       }
     }
   ],
-
   "hrc": [
     {
       "id": 1,
@@ -172,7 +165,6 @@
       }
     }
   ],
-
   "pvs": [
     {
       "id": 1,
@@ -193,7 +185,6 @@
       "path": "/BigBuckBunny_40_288_375.yuv"
     }
   ],
-
   "subjects": [
     {
       "id": 1,
@@ -216,7 +207,6 @@
       }
     }
   ],
-
   "trials": [
     {
       "id": 1,
@@ -237,7 +227,6 @@
       "score_id": [4, 5, 6]
     }
   ],
-
   "scores": [
     {
       "id": 1,

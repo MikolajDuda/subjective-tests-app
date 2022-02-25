@@ -14,9 +14,9 @@ const User = require('../models/User');
 router.post('/',
   auth,
   [
-    check('name', 'Name is required').not().isEmpty(),
-    check('email', 'Please include a valid email').isEmail(),
-    check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6 })
+    check('name', 'name: pole jest wymagane').not().isEmpty(),
+    check('email', 'Email jest niepoprawny').isEmail(),
+    check('password', 'Hasło musi mieć przynajmniej 6 znaków').isLength({ min: 6 })
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -29,7 +29,7 @@ router.post('/',
       let user = await User.findOne({ email });
 
       if (user) {
-        return res.status(400).json({ msg: 'User already exists' });
+        return res.status(400).json({ msg: 'Taki użytkownik już istnieje' });
       }
 
       user = new User({
@@ -51,14 +51,14 @@ router.post('/',
       };
 
       jwt.sign(payload, config.get('jwtSecret'), {
-        expiresIn: 36000                                           // TODO: zmienić na 3600 po zakonczeniu developmentu
+        expiresIn: 3600
       }, (err, token) => {
         if (err) throw err;
         res.json({ token });
       });
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server error');
+      res.status(500).send('Błąd serwera');
     }
   });
 

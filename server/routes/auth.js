@@ -17,7 +17,7 @@ router.get('/', auth, async (req, res) => {
     res.json(user);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Błąd serwera');
   }
 });
 
@@ -26,8 +26,8 @@ router.get('/', auth, async (req, res) => {
 // @access  Public
 router.post('/',
   [
-    check('email', 'Please include a valid email').isEmail(),
-    check('password', 'Password is required').exists()
+    check('email', 'Email jest niepoprawny').isEmail(),
+    check('password', 'Hasło jest wymagane').exists()
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -41,13 +41,13 @@ router.post('/',
       let user = await User.findOne({ email });
 
       if (!user) {
-        return res.status(400).json({ msg: 'Invalid Credentials' });
+        return res.status(400).json({ msg: 'Nieprawidłowe dane' });
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
-        return res.status(400).json({ msg: 'Invalid Credentials' });
+        return res.status(400).json({ msg: 'Nieprawidłowe dane' });
       }
 
       const payload = {
@@ -57,14 +57,14 @@ router.post('/',
       };
 
       jwt.sign(payload, config.get('jwtSecret'), {
-        expiresIn: 36000                                           // TODO: zmienić na 3600 po zakonczeniu developmentu
+        expiresIn: 3600
       }, (err, token) => {
         if (err) throw err;
         res.json({ token });
       });
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server Error');
+      res.status(500).send('Błąd serwera');
     }
   });
 

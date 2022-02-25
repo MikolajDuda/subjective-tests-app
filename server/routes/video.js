@@ -17,6 +17,7 @@ router.get('/*', (req, res) => {
   const fileExtension = splittedPath[splittedPath.length - 1];
 
   if (range) {
+    console.log('JESTEM W RANGE')
     const parts = range.replace(/bytes=/, "").split("-");
     const start = parseInt(parts[0], 10);
     const end = parts[1]
@@ -25,7 +26,7 @@ router.get('/*', (req, res) => {
 
     if (start >= fileSize) {
       return res.status(416).json({
-        error: `Requested range not satisfiable, ${ start } >= ${ fileSize }`
+        error: `Żądany zakres nie jest spełniony, ${ start } >= ${ fileSize }`
       });
     }
 
@@ -41,6 +42,7 @@ router.get('/*', (req, res) => {
     res.writeHead(206, head);
     file.pipe(res);
   } else {
+    console.log('NIE JESTEM W RANGE!')
     const head = {
       'Content-Length': fileSize,
       'Content-Type': `video/${fileExtension}`,
