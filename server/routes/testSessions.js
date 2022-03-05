@@ -30,9 +30,9 @@ router.get('/:name', async (req, res) => {
   try {
     const testSession = await TestSession.findOne({ dataset_name: name });
 
-    if (testSession) {    // if testSession is defined in the database send the testSession
+    if (testSession) {    // if TestSession is defined in the database send the TestSession
       res.json(testSession);
-    } else {              // if testSession is not defined create disposable, random testSession end send it
+    } else {              // if TestSession is not defined create disposable, random TestSession end send it
       const results = await ExperimentResult.findOne({ dataset_name: name });
 
       let pvs = results.pvs.map(pvs => ({
