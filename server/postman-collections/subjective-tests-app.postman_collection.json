@@ -173,6 +173,47 @@
 					"response": []
 				},
 				{
+					"name": "Update an ExperimentResult Subjects Characteristic",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE5MjllNDJiODE3ZTE1ZGY4ODNiNzk5In0sImlhdCI6MTY3Mjk1NDQ2NiwiZXhwIjoxNjcyOTU4MDY2fQ.UVT8NUYIZbh3POgBpw89qv4wnQxYdvvR5qMQ6q_3Eao",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dataset_name\": \"test\",\n    \"subject_id\": \"16729586046864232\",\n    \"characteristic\": {\n        \"speedtest24\": \"1 bps\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/experiment-results/subjects/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"experiment-results",
+								"subjects",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Update an ExperimentResult",
 					"request": {
 						"method": "PUT",
@@ -287,72 +328,6 @@
 								"api",
 								"experiment-results",
 								"subjects"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Contacts",
-			"item": [
-				{
-					"name": "http://localhost:3001/api/contacts",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "x-auth-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE5MjllNDJiODE3ZTE1ZGY4ODNiNzk5In0sImlhdCI6MTYzNzE2NjY1MiwiZXhwIjoxNjM3MjAyNjUyfQ.EzdYZu8IVaM4y4N2jPjiwTOGdwpywjFxUjOz-n68tKU",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"allen\", \n    \"email\": \"mail@mail.com\", \n    \"phone\":\"444\",\n    \"type\": \"personal\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3001/api/contacts",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3001",
-							"path": [
-								"api",
-								"contacts"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "http://localhost:3001/api/contacts",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-auth-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE5MjllNDJiODE3ZTE1ZGY4ODNiNzk5In0sImlhdCI6MTYzNzE2NjY1MiwiZXhwIjoxNjM3MjAyNjUyfQ.EzdYZu8IVaM4y4N2jPjiwTOGdwpywjFxUjOz-n68tKU",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:3001/api/contacts",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3001",
-							"path": [
-								"api",
-								"contacts"
 							]
 						}
 					},
