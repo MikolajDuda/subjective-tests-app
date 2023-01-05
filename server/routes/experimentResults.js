@@ -173,6 +173,65 @@ router.post('/subjects/',
     }
   });
 
+// @route    PUT api/experiment-results/subjects/
+// @desc     Update an experiment result
+// @access   Public
+router.put('/subjects/',
+  [
+    [
+      check('dataset_name', 'dataset_name: pole jest wymagane').not().isEmpty(),
+      check('subject_id', 'subject_id: pole jest wymagane').not().isEmpty(),
+      check('characteristic', 'characteristic: pole jest wymagane').not().isEmpty()
+    ]
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty())
+      return res.status(400).json({ errors: errors.array() });
+
+    const { dataset_name, subject_id, characteristic } = req.body;
+
+    let experimentResult = await ExperimentResult.findOne({ dataset_name });
+
+    if (!experimentResult) return res.status(404).json({ msg: 'Nie znaleziono eksperymentu z podanym dataset_name' });
+
+    const subject = experimentResult.subjects.find(subject => `${subject.id}`.trim() === `${subject_id}`.trim());
+
+    if (!subject || subject.length === 0 ) return res.status(404).json({ msg: 'Nie znaleziono subjectu z podanym subject_id' });
+
+    try {
+
+      const index = experimentResult.subjects.indexOf(subject);
+
+       const newSubject = {
+        id: subject.id,
+        characteristics: {
+          ...subject.characteristics,
+          ...characteristic
+        }
+      };
+
+      experimentResult.subjects[index] = newSubject;
+
+      const newExperimentResult = {
+        ...experimentResult
+      };
+
+      experimentResult = await ExperimentResult.findOneAndUpdate(
+        { dataset_name },
+        {
+          $set: newExperimentResult
+        },
+        { new: true }
+      );
+      res.json(newSubject);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Błąd serwera');
+    }
+  });
+
+
 // @route    PUT api/experiment-results/:name
 // @desc     Update an experiment result
 // @access   Public

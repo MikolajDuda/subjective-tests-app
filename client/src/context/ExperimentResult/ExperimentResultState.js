@@ -4,7 +4,9 @@ import ExperimentResultContext from './ExperimentResultContext';
 import ExperimentResultReducer from './ExperimentResultReducer';
 import {
   GET_ALL_EXPERIMENT_RESULTS,
-  EXPERIMENT_RESULT_ERROR
+  EXPERIMENT_RESULT_ERROR,
+  ADD_SUBJECT_TO_EXPERIMENT_RESULT,
+  ADD_CHARACTERISTIC_TO_SUBJECT_IN_EXPERIMENT_RESULT
 } from '../types';
 import { PROXY } from '../../App';
 
@@ -44,23 +46,19 @@ const ExperimentResultState = props => {
 
     try {
       const res = await axios.post(`${PROXY}/api/experiment-results/subjects/`, reqBody, config);
+      dispatch({
+        type: ADD_SUBJECT_TO_EXPERIMENT_RESULT,
+        payload: res.data
+      });
     } catch (err) {
       dispatch({
         type: EXPERIMENT_RESULT_ERROR,
-        payload: err.response.msg
+        payload: err.response?.msg
       });
     }
   }
 
-  /*
-  const clearTestSession = () => {
-    dispatch({
-      type: CLEAR_TEST_SESSION
-    });
-  };
-
-  // Set video rating api/experiment-results/rate/
-  const setVideoRating = async (dataset_name, rating, current_pvs_array_id, pvs) => {
+  const addCharacteristicToSubject = async (dataset_name, subject_id, characteristic) => {
     const config = {
       headers: {
         'Content-Type': 'application/json'
@@ -68,24 +66,24 @@ const ExperimentResultState = props => {
     };
     const reqBody = {
       dataset_name,
-      rating,
-      id: pvs[current_pvs_array_id].id
-    }
+      subject_id,
+      characteristic
+    };
 
     try {
-      const res = await axios.post(`${PROXY}/api/experiment-results/rate/`, reqBody, config);
+      const res = await axios.put(`${PROXY}/api/experiment-results/subjects/`, reqBody, config);
       dispatch({
-        type: SET_VIDEO_RATING,
-        payload: { dataset_name, rating, current_pvs_array_id, pvs }
+        type: ADD_CHARACTERISTIC_TO_SUBJECT_IN_EXPERIMENT_RESULT,
+        payload: res.data
       });
     } catch (err) {
       dispatch({
-        type: TEST_SESSION_ERROR,
-        payload: err.response.msg
+        type: EXPERIMENT_RESULT_ERROR,
+        payload: err.response?.msg
       });
     }
-  };
-  */
+  }
+
 
   return (
     <ExperimentResultContext.Provider
@@ -93,7 +91,8 @@ const ExperimentResultState = props => {
         ...state,
         experiment_names: state.experiment_names,
         getAllExperimentResults,
-        addSubjectToExperimentResult
+        addSubjectToExperimentResult,
+        addCharacteristicToSubject
       }}
     >
       {props.children}

@@ -82,7 +82,7 @@ const pvsSchema = new mongoose.Schema({
   id: Number,
   hrc_id: Number,
   src_id: Number,
-  path: String                                        // TODO: Stąd będą brane path do plików wideo
+  path: String
 });
 
 const subjectSchema = new mongoose.Schema({
