@@ -41,6 +41,7 @@ const InstructionPlayer = () => {
 
   const redirectToRatingPage = () => {
     instructionPlayed = true;
+    document.exitFullscreen();
   };
 
   const redirectToTest = () => {

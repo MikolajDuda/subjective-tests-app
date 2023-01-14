@@ -134,6 +134,7 @@ a {
 }
 
 .rating-page, .form-page, .login, .register {
+    margin-top: 50px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -212,4 +213,17 @@ input[type="file"] {
 .message {
     margin-top: 20px;
     color: var(--gray-35);
+}
+
+.experiment-end-page {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.experiment-end-page p {
+    margin: 40px;
 }

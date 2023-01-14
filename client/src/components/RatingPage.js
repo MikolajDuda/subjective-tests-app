@@ -58,7 +58,7 @@ const RatingPage = () => {
         });
 
         clearTestSession();
-        history.push('/');
+        history.push('/experiment-end');
         }
       );
     } else {

@@ -15,6 +15,7 @@ import PrivateRoute from './components/PrivateRoute';
 import ExperimentList from './components/ExperimentsList';
 import ExperimentResultState from './context/ExperimentResult/ExperimentResultState';
 import InstructionPlayer from "./components/InstructionPlayer";
+import ExperimentEndPage from "./components/ExperimentEndPage";
 
 export const PROXY = 'http://localhost:3001';
 
@@ -62,6 +63,10 @@ const App = () => {
                   </Route>
                   <Route path="/rate">
                     <RatingPage />
+                  </Route>
+                  <Route path="/experiment-end">
+                    <Navbar />
+                    <ExperimentEndPage />
                   </Route>
                   <Route path="*">
                     <NotFound />
